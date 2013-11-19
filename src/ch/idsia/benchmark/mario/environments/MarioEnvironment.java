@@ -314,6 +314,8 @@ public byte[][] getMergedObservationZZ(int ZLevelScene, int ZLevelEnemies)
         {
             int row = sprite.mapY - levelScene.mario.mapY + mRow;
             int col = sprite.mapX - levelScene.mario.mapX + mCol;
+            System.out.println(row);
+            System.out.println(col);
             byte tmp = GeneralizerEnemies.ZLevelGeneralization(sprite.kind, ZLevelEnemies);
             if (tmp != Sprite.KIND_NONE)
                 mergedZZ[row][col] = tmp;
