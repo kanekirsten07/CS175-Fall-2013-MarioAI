@@ -6,12 +6,12 @@ public class GeneticAlgorithm {
 	
 	
 	//Swap two arrays of moves
-	public Descendents createDescendents(ArrayList<Boolean> a, ArrayList<Boolean> b)
+	public Descendents createDescendents(ArrayList<boolean[]> a, ArrayList<boolean[]> b)
 	{
 	
 		Random r = new Random();
 		Descendents d = new Descendents();
-		ArrayList<Boolean> temp = new ArrayList<Boolean>();
+		ArrayList<boolean[]> temp = new ArrayList<boolean[]>();
 		int pivot;
 		if(a.size() > b.size())
 		{
