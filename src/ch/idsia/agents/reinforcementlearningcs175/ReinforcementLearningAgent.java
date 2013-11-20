@@ -9,7 +9,7 @@ import ch.idsia.benchmark.mario.engine.sprites.Sprite;
 import ch.idsia.benchmark.mario.environments.Environment;
 import ch.idsia.benchmark.tasks.LearningTask;
 
-public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Agent, LearningAgent{
+public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Agent, LearningAgent {
 
 	public ReinforcementLearningAgent() {
 		super("Reinforcement Learning Agent");
@@ -22,45 +22,58 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Age
 	int zLevelEnemies = 0;
 	//To be used to store the moves mario makes, can then manipulate to implement genetic algorithm
 	private ArrayList<Boolean> possibleMoves = new ArrayList<Boolean>();
-	public void integrateObservation(Environment environment)
-	{
-		levelScene = environment.getLevelSceneObservationZ(zLevelScene);
-	    enemies = environment.getEnemiesObservationZ(zLevelEnemies);
-	    mergedObservation = environment.getMergedObservationZZ(1, 0);
-	    
 
-	}
-	
 	public void getImmediateObservation()
-	{
-	
+	{	
 		int enemyNum;
 		int environmentNum;
 		
         //iterate this each time around mario to search for enemies
-       enemyNum = getEnemiesCellValue(marioEgoRow, marioEgoCol) ;
+		
+		for(int col = marioEgoCol - 20; col < marioEgoCol + 20; col++)
+		{			
+			for(int row = marioEgoRow; row < marioEgoRow + 20; row++)
+			{
+				enemyNum = getEnemiesCellValue(row, col) ;	
+				
+				switch(enemyNum)
+				{
+				case(Sprite.KIND_BULLET_BILL):
+					break;
+				case(Sprite.KIND_ENEMY_FLOWER):
+					break;
+				case(Sprite.KIND_GOOMBA):
+					System.out.println("Goomba detected at " + col + " " + row);
+					
+					if(!action[Mario.KEY_SPEED])
+						action[Mario.KEY_SPEED] = true;
+					else
+						action[Mario.KEY_SPEED] = false;
+					break;
+			    case(Sprite.KIND_GOOMBA_WINGED):
+				    break;
+			    case(Sprite.KIND_WAVE_GOOMBA):
+			    	break;
+			    case(Sprite.KIND_GREEN_KOOPA):
+				    break;
+			    case(Sprite.KIND_GREEN_KOOPA_WINGED):
+			    	break;
+			    case(Sprite.KIND_RED_KOOPA):
+			    	break;
+			    case(Sprite.KIND_RED_KOOPA_WINGED):
+			    	break;
+			    case(Sprite.KIND_SHELL):
+			    	break;
+			    default:
+			    	break;
+			   }
+			}		
+		}
+		
        
-       switch(enemyNum)
-       {
-       case(Sprite.KIND_BULLET_BILL):
-    	   break;
-       case(Sprite.KIND_ENEMY_FLOWER):
-    	   break;
-       case(Sprite.KIND_GOOMBA):
-    	   break;
-       case(Sprite.KIND_GOOMBA_WINGED):
-    	   break;
-       case(Sprite.KIND_GREEN_KOOPA):
-    	   break;
-       case(Sprite.KIND_GREEN_KOOPA_WINGED):
-    	   break;
-       case(Sprite.KIND_RED_KOOPA):
-    	   break;
-       case(Sprite.KIND_RED_KOOPA_WINGED):
-    	   break;
-       case(Sprite.KIND_SHELL):
-    	   break;
-       }
+       
+       // Search above, diagonal, to right etc.
+       
        //Same as above, just with environment elements
        environmentNum = getReceptiveFieldCellValue(marioEgoRow , marioEgoCol);
        switch(environmentNum)
@@ -75,19 +88,6 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Age
 	}
 
 	
-	public void giveIntermediateReward(float intermediateReward) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-	public void setObservationDetails(int rfWidth, int rfHeight, int egoRow,
-			int egoCol) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
 	public String getName() { return name; }
 
 	public void setName(String Name) { this.name = Name; }
@@ -96,13 +96,24 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Age
 
 public boolean[] getAction()
 {
-    action[Mario.KEY_SPEED] = action[Mario.KEY_JUMP] = isMarioAbleToJump || !isMarioOnGround;
+    //action[Mario.KEY_SPEED] = action[Mario.KEY_JUMP] = isMarioAbleToJump || !isMarioOnGround;
+
+	action[Mario.KEY_RIGHT] = true;
+	
+	action[Mario.KEY_JUMP] = isMarioAbleToJump || !isMarioOnGround;
+	
+    getImmediateObservation();
+    
     return action;
+    
+	
+    //
 }
 
 public void reset()
 {
-    
+	action = new boolean[Environment.numberOfKeys];
+    action[Mario.KEY_SPEED] = false;
 }
 
 
@@ -153,7 +164,5 @@ public void init() {
 	// TODO Auto-generated method stub
 	
 }
-
-
 
 }
