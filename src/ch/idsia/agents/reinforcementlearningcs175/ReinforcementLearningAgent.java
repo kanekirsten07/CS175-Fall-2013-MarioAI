@@ -75,18 +75,54 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Age
        // Search above, diagonal, to right etc.
        
        //Same as above, just with environment elements
+		for(int col = marioEgoCol - 20; col < marioEgoCol + 20; col++)
+		{			
+			for(int row = marioEgoRow; row < marioEgoRow + 20; row++)
+			{
        environmentNum = getReceptiveFieldCellValue(marioEgoRow , marioEgoCol);
        switch(environmentNum)
        {
        case(Sprite.KIND_COIN_ANIM):
-    	   break;
-       case(Sprite.KIND_NONE):
+    	   moveTowardGoodThings(col, row, marioEgoRow, marioEgoCol);
     	   break;
        case(Sprite.KIND_PRINCESS):
+    	   moveTowardGoodThings(col, row, marioEgoRow, marioEgoCol);
+    	   break;
+       case(Sprite.KIND_GREEN_MUSHROOM):
+    	   moveTowardGoodThings(col, row, marioEgoRow, marioEgoCol);
+    	   break;
+       case(Sprite.KIND_FIRE_FLOWER):
+    	   moveTowardGoodThings(col, row, marioEgoRow, marioEgoCol);
+    	   break;
+       case(Sprite.KIND_MUSHROOM):
+    	   moveTowardGoodThings(col, row, marioEgoRow, marioEgoCol);
     	   break;
        }
+			}
+		}
 	}
 
+	private void moveTowardGoodThings(int col, int row, int mariorow, int mariocol)
+	{
+		if(col < mariocol)
+		{
+			action[Mario.KEY_LEFT] = true;
+		}else
+		{
+			action[Mario.KEY_RIGHT] = true;
+		}
+		// Rows get greater as you go top to bottom 
+		if(row > mariorow)
+		{
+			action[Mario.KEY_DOWN] = true;
+			
+		}else
+		{
+			action[Mario.KEY_UP] = true;
+			action[Mario.KEY_JUMP] = true;
+			
+		}
+	}
 	
 	public String getName() { return name; }
 
