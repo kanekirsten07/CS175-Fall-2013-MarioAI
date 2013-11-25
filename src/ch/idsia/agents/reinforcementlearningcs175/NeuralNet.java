@@ -36,10 +36,27 @@ public class NeuralNet
 		this.layerSizes = Arrays.copyOf(layerSizes, layerSizes.length);
 
 		this.size = layerSizes[0];
+
+		int sizeOfLargestLayer = layerSizes[0];
+
 		for (int c = 1; c < layerSizes.length; c++)
 		{
 			this.size += layerSizes[c] * layerSizes[c-1];
+			if(layerSizes[c] > sizeOfLargestLayer)
+				sizeOfLargestLayer = layerSizes[c];
 		}
+
+		// weights[number of layers][max number of nodes in a layer][max number of inputs to a node]
+		// The max number of nodes in a layer is also the max number of inputs to a specific node.
+		//
+		// i.e. If our our largest layer had 5 nodes, then the most weights a node would have would be
+		// 5 (and those would be nodes of the subsequent layer).
+		//
+		// When computing the actual accessible indices for a given layer, 
+		// many times we will have to rely on the layerSizes array to compute how much of the array to access.
+		//
+		// TODO: Helper functions for getting the "actual" indices we want to access for a given layer/node.
+		weights = new float[layerSizes.length][sizeOfLargestLayer][sizeOfLargestLayer];
 	}
 	
 	/// Solves the network for the specified inputs
