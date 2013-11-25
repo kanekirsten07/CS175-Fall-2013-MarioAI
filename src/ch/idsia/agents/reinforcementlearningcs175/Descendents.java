@@ -1,18 +1,18 @@
 package ch.idsia.agents.reinforcementlearningcs175;
 import java.util.ArrayList;
 public class Descendents {
-	private ArrayList<ArrayList<boolean[]>> myDescendents ;
+	private ArrayList<float[]> myDescendents ;
 	public Descendents()
 	{
-		myDescendents = new ArrayList<ArrayList<boolean[]>>();
+		myDescendents = new ArrayList<float[]>();
 	}
 	
-	public void add(ArrayList<boolean[]> a)
+	public void add(float[] a)
 	{
 		myDescendents.add(a);
 	}
 	
-	public ArrayList<ArrayList<boolean[]>> getDescendents()
+	public ArrayList<float[]> getDescendents()
 	{
 		return myDescendents;
 	}
