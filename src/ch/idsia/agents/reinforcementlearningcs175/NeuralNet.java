@@ -34,9 +34,12 @@ public class NeuralNet
 	public NeuralNet(int[] layerSizes)
 	{
 		this.layerSizes = Arrays.copyOf(layerSizes, layerSizes.length);
-		this.size = 0;
+
+		this.size = layerSizes[0];
 		for (int c = 1; c < layerSizes.length; c++)
+		{
 			this.size += layerSizes[c] * layerSizes[c-1];
+		}
 	}
 	
 	/// Solves the network for the specified inputs
