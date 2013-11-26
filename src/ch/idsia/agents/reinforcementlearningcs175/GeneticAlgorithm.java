@@ -87,6 +87,7 @@ public class GeneticAlgorithm {
 		if(r1 > 0 && r1 < 10)
 		{
 			randAdd = r1;
+			flipCoin();
 			return true;
 		}else
 		{
