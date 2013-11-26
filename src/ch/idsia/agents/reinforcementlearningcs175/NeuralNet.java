@@ -69,6 +69,14 @@ public class NeuralNet
 		
 		return result;
 	}
+
+	// Returns the 1D array representation of all the weights in the NN.
+	public float[] GetWeights()
+	{
+		//TODO: Convert the weights[][][] array into a 1D float array
+		
+		return null;
+	}
 	
 	private boolean[] SolveLayer(int layer, boolean[] previousLayer) throws Exception
 	{
