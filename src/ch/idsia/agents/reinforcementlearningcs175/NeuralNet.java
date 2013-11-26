@@ -35,10 +35,22 @@ public class NeuralNet
 	{
 		this.layerSizes = Arrays.copyOf(layerSizes, layerSizes.length);
 
-		this.size = layerSizes[0];
-		for (int c = 1; c < layerSizes.length; c++)
+		this.size = 0;
+		this.weights = new float[layerSizes.length][][];
+
+		for (int layerIndex = 0; layerIndex < weights.length; layerIndex++)
 		{
-			this.size += layerSizes[c] * layerSizes[c-1];
+			this.weights[layerIndex] = new float[layerSizes[layerIndex]][];
+
+			for (int nodeIndex = 0; nodeIndex < weights[layerIndex].length; nodeIndex++)
+			{
+				// If this is a node on the first layer, num of weights is 1, otherwise it is
+				// the number of nodes in the previous layer
+				int numOfWeightsForNode = (layerIndex == 0) ? 1 : layerSizes[layerIndex - 1];
+
+				this.weights[layerIndex][nodeIndex] = new float[numOfWeightsForNode];
+				this.size += numOfWeightsForNode;	
+			}
 		}
 	}
 	
