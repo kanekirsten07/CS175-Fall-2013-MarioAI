@@ -29,53 +29,28 @@ public class NeuralNet
 		//TODO: break the flat weights array into the three-dimensional this.weights array
 	}
 	
-	// Helper function to determine how much of the weights array to access for a specific node/layer.
-	// Returns 0 if layer index is not valid
-	private int GetNumWeightsInNodeOfLayer(int layerIndex)
-	{
-		if(layerIndex < 0 || layerIndex >= layerSizes.length)
-			return 0;
-		if(layerIndex == 0)
-			return 1;
-		return layerSizes[layerIndex-1];
-	}
-	
-	// Helper function to determine how much of the weights array to access for a specific layer.
-	// Returns 0 if layer index is not valid
-	private int GetNumNodesInLayer(int layerIndex)
-	{
-		if(layerIndex < 0 || layerIndex >= layerSizes.length)
-			return 0;
-		return layerSizes[layerIndex];
-	}
-	
 	/// Create a network with layers of the specified sizes (including input and output layers)
 	public NeuralNet(int[] layerSizes)
 	{
 		this.layerSizes = Arrays.copyOf(layerSizes, layerSizes.length);
 
-		this.size = layerSizes[0];
+		this.size = 0;
+		this.weights = new float[layerSizes.length][][];
 
-		int sizeOfLargestLayer = layerSizes[0];
-
-		for (int c = 1; c < layerSizes.length; c++)
+		for (int layerIndex = 0; layerIndex < weights.length; layerIndex++)
 		{
-			this.size += layerSizes[c] * layerSizes[c-1];
-			if(layerSizes[c] > sizeOfLargestLayer)
-				sizeOfLargestLayer = layerSizes[c];
-		}
+			this.weights[layerIndex] = new float[layerSizes[layerIndex]][];
 
-		// weights[number of layers][max number of nodes in a layer][max number of inputs to a node]
-		// The max number of nodes in a layer is also the max number of inputs to a specific node.
-		//
-		// i.e. If our our largest layer had 5 nodes, then the most weights a node would have would be
-		// 5 (and those would be nodes of the subsequent layer).
-		//
-		// When computing the actual accessible indices for a given layer, 
-		// many times we will have to rely on the layerSizes array to compute how much of the array to access.
-		//
-		// TODO: Helper functions for getting the "actual" indices we want to access for a given layer/node.
-		weights = new float[layerSizes.length][sizeOfLargestLayer][sizeOfLargestLayer];
+			for (int nodeIndex = 0; nodeIndex < weights[layerIndex].length; nodeIndex++)
+			{
+				// If this is a node on the first layer, num of weights is 1, otherwise it is
+				// the number of nodes in the previous layer
+				int numOfWeightsForNode = (layerIndex == 0) ? 1 : layerSizes[layerIndex - 1];
+
+				this.weights[layerIndex][nodeIndex] = new float[numOfWeightsForNode];
+				this.size += numOfWeightsForNode;	
+			}
+		}
 	}
 	
 	/// Solves the network for the specified inputs
