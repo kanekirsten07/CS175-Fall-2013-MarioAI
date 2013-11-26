@@ -29,6 +29,25 @@ public class NeuralNet
 		//TODO: break the flat weights array into the three-dimensional this.weights array
 	}
 	
+	// Helper function to determine how much of the weights array to access for a specific node/layer.
+	// Returns 0 if layer index is not valid
+	private int GetNumWeightsInNodeOfLayer(int layerIndex)
+	{
+		if(layerIndex < 0 || layerIndex >= layerSizes.length)
+			return 0;
+		if(layerIndex == 0)
+			return 1;
+		return layerSizes[layerIndex-1];
+	}
+	
+	// Helper function to determine how much of the weights array to access for a specific layer.
+	// Returns 0 if layer index is not valid
+	private int GetNumNodesInLayer(int layerIndex)
+	{
+		if(layerIndex < 0 || layerIndex >= layerSizes.length)
+			return 0;
+		return layerSizes[layerIndex];
+	}
 	
 	/// Create a network with layers of the specified sizes (including input and output layers)
 	public NeuralNet(int[] layerSizes)
