@@ -5,6 +5,15 @@ public class GeneticAlgorithm {
 	
 	private float mutationValue = 0.1f;
 	private int randAdd = 0;
+	
+	public float[] createChild(float[] a, float[] b)
+	{
+		Descendents d = this.createDescendents(a, b);
+		Mutate(a);	
+		return a;
+	}
+
+
 	//Swap two arrays of moves
 	public Descendents createDescendents(float[] a, float[] b)
 	{
