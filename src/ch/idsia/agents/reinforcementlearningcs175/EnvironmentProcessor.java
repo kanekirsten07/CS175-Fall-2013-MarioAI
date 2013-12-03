@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import ch.idsia.agents.controllers.BasicMarioAIAgent;
 import ch.idsia.benchmark.mario.engine.sprites.Sprite;
 
-public class EnvironmentProcessor implements EnvironmentProcessorInterface{
+public class EnvironmentProcessor implements IEnvironmentProcessor{
 	
 	private ArrayList<Integer> environmentInts ;
 	
