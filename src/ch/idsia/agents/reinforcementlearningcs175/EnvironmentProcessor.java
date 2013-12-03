@@ -56,104 +56,41 @@ public class EnvironmentProcessor implements EnvironmentProcessorInterface{
 					switch(enemyNum)
 					{
 					case(Sprite.KIND_BULLET_BILL):
-						environmentInts.add(col);
-						environmentInts.add(row);
-						environmentInts.add(1);
-						environmentInts.add(0);
-						environmentInts.add(0);
-						environmentInts.add(1);
-						environmentInts.add(100);
-						environmentInts.add(0);
+						addEnemy(col, row, 1, 0, 0 , 1, 100, 0);
 						enemyStartInt++;
 						break;
 					case(Sprite.KIND_ENEMY_FLOWER):
-						environmentInts.add(col);
-					environmentInts.add(row);
-					environmentInts.add(0);
-					environmentInts.add(1);
-					environmentInts.add(0);
-					environmentInts.add(0);
-					environmentInts.add(100);
-					environmentInts.add(1);
+						addEnemy(col, row, 0, 1, 0 ,0 , 100, 1);
 					enemyStartInt++;
 						break;
 					case(Sprite.KIND_GOOMBA):
-						environmentInts.add(col);
-					environmentInts.add(row);
-					environmentInts.add(1);
-					environmentInts.add(1);
-					environmentInts.add(0);
-					environmentInts.add(0);
-					environmentInts.add(10);
-					environmentInts.add(0);
+						addEnemy(col, row, 1, 1, 0, 0, 10, 0);
 					enemyStartInt++;
 						break;
 				    case(Sprite.KIND_GOOMBA_WINGED):
-				    	environmentInts.add(col);
-					environmentInts.add(row);
-					environmentInts.add(1);
-					environmentInts.add(1);
-					environmentInts.add(0);
-					environmentInts.add(1);
-					environmentInts.add(10);
-					environmentInts.add(0);
+				    	addEnemy(col, row, 1, 1, 0, 1, 10, 0);
 					enemyStartInt++;
 					    break;
 				    case(Sprite.KIND_WAVE_GOOMBA):
 				    	break;
 				    case(Sprite.KIND_GREEN_KOOPA):
-				    	environmentInts.add(col);
-					environmentInts.add(row);
-					environmentInts.add(1);
-					environmentInts.add(1);
-					environmentInts.add(1);
-					environmentInts.add(0);
-					environmentInts.add(10);
-					environmentInts.add(0);
+				    	addEnemy(col, row, 1, 1, 1, 0, 10, 0);
 					enemyStartInt++;
 					    break;
 				    case(Sprite.KIND_GREEN_KOOPA_WINGED):
-				    	environmentInts.add(col);
-					environmentInts.add(row);
-					environmentInts.add(1);
-					environmentInts.add(1);
-					environmentInts.add(1);
-					environmentInts.add(1);
-					environmentInts.add(10);
-					environmentInts.add(0);
+				    	addEnemy(col, row, 1, 1, 1, 1, 10, 0);
 					enemyStartInt++;
 				    	break;
 				    case(Sprite.KIND_RED_KOOPA):
-				    	environmentInts.add(col);
-					environmentInts.add(row);
-					environmentInts.add(1);
-					environmentInts.add(1);
-					environmentInts.add(1);
-					environmentInts.add(0);
-					environmentInts.add(10);
-					environmentInts.add(0);
+				    	addEnemy(col, row, 1, 1, 1, 0, 10, 0);
 					enemyStartInt++;
 				    	break;
 				    case(Sprite.KIND_RED_KOOPA_WINGED):
-				    	environmentInts.add(col);
-					environmentInts.add(row);
-					environmentInts.add(1);
-					environmentInts.add(1);
-					environmentInts.add(1);
-					environmentInts.add(1);
-					environmentInts.add(10);
-					environmentInts.add(0);
+				    	addEnemy(col, row, 1, 1, 1, 1, 10, 0);
 					enemyStartInt++;
 				    	break;
 				    case(Sprite.KIND_SHELL):
-				    	environmentInts.add(col);
-					environmentInts.add(row);
-					environmentInts.add(1);
-					environmentInts.add(1);
-					environmentInts.add(1);
-					environmentInts.add(0);
-					environmentInts.add(10);
-					environmentInts.add(0);
+				    	addEnemy(col, row, 1, 1, 1, 0, 10, 0);
 					enemyStartInt++;
 				    	break;
 				    default:
@@ -192,39 +129,23 @@ public class EnvironmentProcessor implements EnvironmentProcessorInterface{
 	       switch(environmentNum)
 	       {
 	       case(Sprite.KIND_COIN_ANIM):
-	    	   environmentInts.add(100);
-	       	   environmentInts.add(col);
-	       	   environmentInts.add(row);
-	       	   environmentInts.add(0);
+	    	   addGoodThing(100, col, row, 0);
 	       	   goodThingsStartInt++;
 	    	   break;
 	       case(Sprite.KIND_PRINCESS):
-
-	    	   environmentInts.add(500);
-	       	   environmentInts.add(col);
-	       	   environmentInts.add(row);
-	       	   environmentInts.add(0);
+	    	   addGoodThing(500, col, row, 0);
 	       	   goodThingsStartInt++;
 	    	   break;
 	       case(Sprite.KIND_GREEN_MUSHROOM):
-	    	   environmentInts.add(100);
-	       	   environmentInts.add(col);
-	       	   environmentInts.add(row);
-	       	   environmentInts.add(1);
+	    	   addGoodThing(100, col, row, 1);
 	       	   goodThingsStartInt++;
 	    	   break;
 	       case(Sprite.KIND_FIRE_FLOWER):
-	    	   environmentInts.add(64);
-	       	   environmentInts.add(col);
-	       	   environmentInts.add(row);
-	       	   environmentInts.add(0);
+	    	   addGoodThing(64, col, row, 0);
 	       	   goodThingsStartInt++;
 	    	   break;
 	       case(Sprite.KIND_MUSHROOM):
-	    	   environmentInts.add(58);
-	       	   environmentInts.add(col);
-	       	   environmentInts.add(row);
-	       	   environmentInts.add(1);
+	    	   addGoodThing(58, col, row, 1);
 	       	   goodThingsStartInt++;
 	    	   break;
 	       default:
@@ -268,29 +189,17 @@ public class EnvironmentProcessor implements EnvironmentProcessorInterface{
 		       {
 		       case(-60):
 		    	   //grass, unbreakable brick
-		    	   environmentInts.add(1);
-		       		environmentInts.add(0);
-		       	   environmentInts.add(col);
-		       	   environmentInts.add(row);
-		       	   environmentInts.add(0);
+		    	   addEnviroBlocks(1, 0, col, row, 0);
 		       	   environmentStartInt++;
 		    	   break;
 		       case(-24):
 		    	   // breakable stuff, like a question mark box or brick
-		    	   environmentInts.add(1);
-	      		environmentInts.add(0);
-	      	   environmentInts.add(col);
-	      	   environmentInts.add(row);
-	      	   environmentInts.add(1);
+		    	   addEnviroBlocks(1, 0, col, row, 1);
 		       	   environmentStartInt++;
 		    	   break;
 		       case(-85):
 		    	   // tube (A whole series of them! No, but really)
-		    	   environmentInts.add(1);
-	      		environmentInts.add(0);
-	      	   environmentInts.add(col);
-	      	   environmentInts.add(row);
-	      	   environmentInts.add(0);
+		    	   addEnviroBlocks(1, 0, col, row, 0);
 		       	   environmentStartInt++;
 		    	   break;
 		       default:
@@ -311,8 +220,35 @@ public class EnvironmentProcessor implements EnvironmentProcessorInterface{
 			return environmentFloats;
 		}	
 		
+	private void addEnemy (int col, int row, int canstomp, int canfireball, int dropsshell, int isflying, int scorefromkilling
+			, int ispiranaplant)
+	{
+		environmentInts.add(col);
+		environmentInts.add(row);
+		environmentInts.add(canstomp);
+		environmentInts.add(canfireball);
+		environmentInts.add(dropsshell);
+		environmentInts.add(isflying);
+		environmentInts.add(scorefromkilling);
+		environmentInts.add(ispiranaplant);
+	}
 
-
+	private void addGoodThing(int score, int col, int row, int canMove)
+	{
+		environmentInts.add(score);
+		environmentInts.add(col);
+		environmentInts.add(row);
+		environmentInts.add(canMove);
+	}
+	
+	private void addEnviroBlocks(int canbebroken, int candisappear, int col, int row, int canproduceitem)
+	{
+		environmentInts.add(canbebroken);
+		environmentInts.add(candisappear);
+		environmentInts.add(col);
+		environmentInts.add(row);
+		environmentInts.add(canproduceitem);
+	}
 	
 	private void fillSectionVoid(int startnum, int numValues)
 	{
