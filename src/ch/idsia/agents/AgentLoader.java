@@ -58,7 +58,8 @@ public Agent loadAgent(String name, boolean isPunj)
     {
 //            e.printStackTrace ();
         agent = new HumanKeyboardAgent();
-        System.err.println("[~ Mario AI ~] : Agent is null. Loading agent with name " + name + " failed.");
+        System.err.println("[~ Mario AI ~] : Agent is null. Loading agent with name " + name + " failed.\n" + 
+	    "Exception: " + e.toString());
         System.out.println("Agent has been set to default: " + agent);
 //            System.exit (1);
     }

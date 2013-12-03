@@ -2,6 +2,7 @@ package ch.idsia.agents.reinforcementlearningcs175;
 import java.lang.IllegalArgumentException;
 import java.lang.IllegalStateException;
 import java.util.Arrays;
+import java.util.Random;
 
 /// This class represents a neural net of arbitrary size.
 public class NeuralNet
@@ -89,6 +90,14 @@ public class NeuralNet
 				this.size += numOfWeightsForNode * weights[layerIndex].length;
 			}
 		}
+		
+		//HACK: do this somewhere else
+		//Randomize weights
+		float[] tempweights = new float[this.size];
+		Random rand = new Random(System.currentTimeMillis());
+		for (int c = 0; c < this.size; c++)
+			tempweights[c] = rand.nextFloat() * 10 - 5;
+		SetWeights(tempweights);
 	}
 	
 	/// Solves the network for the specified inputs
@@ -112,7 +121,7 @@ public class NeuralNet
 		if (weights == null)
 			throw new IllegalStateException("'weights' hasn't been initialized with 'SetWeights' yet.");
 		if (input.length != GetInputDimension())
-			throw new IllegalArgumentException("Size of 'input' must match the size of the first layer of the net.");
+			throw new IllegalArgumentException("Size of 'input' must match the size of the first layer of the net (Expected: " + GetInputDimension() + ", Got: " + input.length + ").");
 		
 		float[] result = input;
 		for (int c = 1; c < weights.length; c++)
