@@ -18,7 +18,7 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent
 	public ReinforcementLearningAgent()
 	{
 		//HACK: hardcoding
-		this(new EnvironmentProcessor(), new int[] { 59, 300, 300, 6 });
+		this(new EnvironmentProcessor(), new int[] { 119, 300, 300, 6 });
 	}
 
 	public ReinforcementLearningAgent(IEnvironmentProcessor envProcessor, int[] NNlayerSizes) 

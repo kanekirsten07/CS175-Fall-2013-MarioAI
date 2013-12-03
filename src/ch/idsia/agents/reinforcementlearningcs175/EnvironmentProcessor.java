@@ -28,6 +28,7 @@ public class EnvironmentProcessor implements IEnvironmentProcessor{
 		int marioEgoCol = mariocol;
 		int marioEgoRow = mariorow;
 		float[] environmentFloats;
+		environmentInts.clear();
 		/*
 		 * EnvironmentInts is an arraylist that can be passed to the neural network that encompasses the environment
 		 * around mario
@@ -235,7 +236,7 @@ public class EnvironmentProcessor implements IEnvironmentProcessor{
 			
 			environmentFloats = ConvertToFromArray.convertIntsToFloats(myInts);
 			this.inputsize = environmentFloats.length;
-		System.out.println(inputsize);
+		//System.out.println(inputsize);
 			return environmentFloats;
 		}	
 		
