@@ -18,6 +18,12 @@ public class GeneticManager
 		this.topPercentageToSave = topPercentageToSave;
 	}
 	
+	public void Reset()
+	{
+		currentAgentCount = 0;
+		agents.clear();
+	}
+	
 	public void saveAgent(float[] weights, float score)
 	{
 		agents.add(new GeneticManagerAgent(currentAgentCount, weights, score));
@@ -52,22 +58,61 @@ public class GeneticManager
 	
 	public GeneticManagerAgent getHighestScoringAgent()
 	{
+		return getAgent(true);
+	}
+	
+	public GeneticManagerAgent getLowestScoringAgent()
+	{
+		return getAgent(false);
+	}
+	
+	private GeneticManagerAgent getAgent(boolean getHighest)
+	{
 		GeneticManagerAgent toReturn = agents.get(0);
+		
 		for(GeneticManagerAgent agent : agents)
 		{
-			if(toReturn.getAgentScore() < agent.getAgentScore())
+			if(getHighest)
 			{
-				toReturn = agent;
+				if(toReturn.getAgentScore() < agent.getAgentScore())
+				{
+					toReturn = agent;
+				}
+			}
+			else
+			{
+				if(toReturn.getAgentScore() > agent.getAgentScore())
+				{
+					toReturn = agent;
+				}
 			}
 		}
 		
 		return toReturn;
 	}
 	
+	public float getAverageScore()
+	{
+		float total = 0;
+		
+		for(GeneticManagerAgent agent : agents)
+		{
+			total += agent.getAgentScore();
+		}
+		
+		return total / agents.size();
+	}
+	
 	public ArrayList<GeneticManagerAgent> getTopAgents()
 	{
-		ArrayList<GeneticManagerAgent> topAgents = new ArrayList<GeneticManagerAgent>();
 		int numAgents = (int)(agents.size() * topPercentageToSave);
+		
+		return getTopXAgents(numAgents);
+	}
+	
+	public ArrayList<GeneticManagerAgent> getTopXAgents(float numAgents)
+	{
+		ArrayList<GeneticManagerAgent> topAgents = new ArrayList<GeneticManagerAgent>();
 		
 		while(topAgents.size() < numAgents && !agents.isEmpty())
 		{
