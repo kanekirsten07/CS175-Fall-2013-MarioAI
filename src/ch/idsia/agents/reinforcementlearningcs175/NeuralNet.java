@@ -21,34 +21,72 @@ public class NeuralNet
 	private float[][][] weights;
 	//TODO: optimization: Make a SparseArray class and use it for this for speed and memory
 	
-	public void SetWeights(float[] weights) throws IllegalArgumentException
+	/// Sets the weights for the NN from a 1D array representation.
+	public void SetWeights(float[] iweights) throws IllegalArgumentException
 	{
-		if (weights.length != size)
-			throw new IllegalArgumentException("The length of 'weights' must match the size of the network.");
+		if (iweights.length != size)
+			throw new IllegalArgumentException("The length of 'iweights' must match the size of the network " + 
+			"(Expected: " + size + ", Got: " + iweights.length + ").");
 		
-		//TODO: break the flat weights array into the three-dimensional this.weights array
+		//Break the 1D array into the 3D structure we're actually using
+		int currentIWeight = 0;
+		for (int layer = 1; layer < layerSizes.length; layer++)
+		{
+			int numOfWeightsForNode = layerSizes[layer - 1];
+			for (int node = 0; node < layerSizes[layer]; node++)
+			{
+				for (int weight = 0; weight < numOfWeightsForNode; weight++)
+				{
+					weights[layer][node][weight] = iweights[currentIWeight];
+					currentIWeight++;
+				}
+			}
+		}
+	}
+	
+	/// Returns the 1D array representation of all the weights in the NN.
+	public float[] GetWeights()
+	{
+		//Convert the weights[][][] array into a 1D float array
+		float[] oweights = new float[size];
+		
+		int currentOWeight = 0;
+		for (int layer = 1; layer < layerSizes.length; layer++)
+		{
+			int numOfWeightsForNode = layerSizes[layer - 1];
+			for (int node = 0; node < layerSizes[layer]; node++)
+			{
+				for (int weight = 0; weight < numOfWeightsForNode; weight++)
+				{
+					oweights[currentOWeight] = weights[layer][node][weight];
+					currentOWeight++;
+				}
+			}
+		}
+		
+		return oweights;
 	}
 	
 	/// Create a network with layers of the specified sizes (including input and output layers)
 	public NeuralNet(int[] layerSizes)
 	{
 		this.layerSizes = Arrays.copyOf(layerSizes, layerSizes.length);
-
+		
+		//Create weights data structure
 		this.size = 0;
 		this.weights = new float[layerSizes.length][][];
-
 		for (int layerIndex = 0; layerIndex < weights.length; layerIndex++)
 		{
 			this.weights[layerIndex] = new float[layerSizes[layerIndex]][];
-
-			for (int nodeIndex = 0; nodeIndex < weights[layerIndex].length; nodeIndex++)
+			
+			if (layerIndex > 0) //Input layer has no weights
 			{
-				// If this is a node on the first layer, num of weights is 1, otherwise it is
-				// the number of nodes in the previous layer
-				int numOfWeightsForNode = (layerIndex == 0) ? 1 : layerSizes[layerIndex - 1];
-
-				this.weights[layerIndex][nodeIndex] = new float[numOfWeightsForNode];
-				this.size += numOfWeightsForNode;	
+				int numOfWeightsForNode = layerSizes[layerIndex - 1];
+				for (int nodeIndex = 0; nodeIndex < weights[layerIndex].length; nodeIndex++)
+				{
+					this.weights[layerIndex][nodeIndex] = new float[numOfWeightsForNode];
+				}
+				this.size += numOfWeightsForNode * weights[layerIndex].length;
 			}
 		}
 	}
@@ -68,14 +106,6 @@ public class NeuralNet
 		}
 		
 		return result;
-	}
-
-	// Returns the 1D array representation of all the weights in the NN.
-	public float[] GetWeights()
-	{
-		//TODO: Convert the weights[][][] array into a 1D float array
-		
-		return null;
 	}
 	
 	private boolean[] SolveLayer(int layer, boolean[] previousLayer) throws Exception
