@@ -98,7 +98,7 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Age
 				environmentInts.add(1);
 				environmentInts.add(0);
 				environmentInts.add(0);
-				environmentInts.add(100);
+				environmentInts.add(10);
 				environmentInts.add(0);
 				enemyStartInt++;
 					break;
@@ -109,7 +109,7 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Age
 				environmentInts.add(1);
 				environmentInts.add(0);
 				environmentInts.add(1);
-				environmentInts.add(100);
+				environmentInts.add(10);
 				environmentInts.add(0);
 				enemyStartInt++;
 				    break;
@@ -122,7 +122,7 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Age
 				environmentInts.add(1);
 				environmentInts.add(1);
 				environmentInts.add(0);
-				environmentInts.add(100);
+				environmentInts.add(10);
 				environmentInts.add(0);
 				enemyStartInt++;
 				    break;
@@ -133,7 +133,7 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Age
 				environmentInts.add(1);
 				environmentInts.add(1);
 				environmentInts.add(1);
-				environmentInts.add(100);
+				environmentInts.add(10);
 				environmentInts.add(0);
 				enemyStartInt++;
 			    	break;
@@ -144,7 +144,7 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Age
 				environmentInts.add(1);
 				environmentInts.add(1);
 				environmentInts.add(0);
-				environmentInts.add(100);
+				environmentInts.add(10);
 				environmentInts.add(0);
 				enemyStartInt++;
 			    	break;
@@ -155,7 +155,7 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Age
 				environmentInts.add(1);
 				environmentInts.add(1);
 				environmentInts.add(1);
-				environmentInts.add(100);
+				environmentInts.add(10);
 				environmentInts.add(0);
 				enemyStartInt++;
 			    	break;
@@ -166,7 +166,7 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Age
 				environmentInts.add(1);
 				environmentInts.add(1);
 				environmentInts.add(0);
-				environmentInts.add(0);
+				environmentInts.add(10);
 				environmentInts.add(0);
 				enemyStartInt++;
 			    	break;
@@ -214,7 +214,7 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Age
     	   break;
        case(Sprite.KIND_PRINCESS):
 
-    	   environmentInts.add(100);
+    	   environmentInts.add(500);
        	   environmentInts.add(col);
        	   environmentInts.add(row);
        	   environmentInts.add(0);
@@ -228,14 +228,14 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Age
        	   goodThingsStartInt++;
     	   break;
        case(Sprite.KIND_FIRE_FLOWER):
-    	   environmentInts.add(100);
+    	   environmentInts.add(64);
        	   environmentInts.add(col);
        	   environmentInts.add(row);
        	   environmentInts.add(0);
        	   goodThingsStartInt++;
     	   break;
        case(Sprite.KIND_MUSHROOM):
-    	   environmentInts.add(100);
+    	   environmentInts.add(58);
        	   environmentInts.add(col);
        	   environmentInts.add(row);
        	   environmentInts.add(1);
@@ -299,7 +299,7 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Age
 	       	   environmentStartInt++;
 	    	   break;
 	       case(-85):
-	    	   // tube
+	    	   // tube (A whole series of them! No, but really)
 	    	   environmentInts.add(1);
       		environmentInts.add(0);
       	   environmentInts.add(col);
