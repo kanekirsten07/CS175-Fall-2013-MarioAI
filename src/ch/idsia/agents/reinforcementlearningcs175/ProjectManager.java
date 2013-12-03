@@ -4,6 +4,9 @@ import java.util.List;
 
 public class ProjectManager implements IProjectManager
 {
+	private ReinforcementLearningAgent agent;
+	private GeneticManager genMan;
+
 	public ProjectManager()
 	{
 
