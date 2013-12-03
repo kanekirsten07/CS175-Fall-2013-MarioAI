@@ -9,9 +9,12 @@ import ch.idsia.benchmark.mario.engine.sprites.Sprite;
 import ch.idsia.benchmark.mario.environments.Environment;
 import ch.idsia.benchmark.tasks.LearningTask;
 
-public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Agent{
+//public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Agent{
+public class ReinforcementLearningAgent extends BasicMarioAIAgent 
+{
 
-	public ReinforcementLearningAgent() {
+	public ReinforcementLearningAgent() 
+	{
 		super("Reinforcement Learning Agent");
 		reset();
 		 e = new EnvironmentProcessor();
@@ -26,9 +29,9 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Age
 	//To be used to store the moves mario makes, can then manipulate to implement genetic algorithm
 		
 	
-	public String getName() { return name; }
+	//public String getName() { return name; }
 
-	public void setName(String Name) { this.name = Name; }
+	//public void setName(String Name) { this.name = Name; }
 
 
 
@@ -48,9 +51,11 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Age
 	    //
 	}
 
+	/*
 	public void reset()
 	{
 		action = new boolean[Environment.numberOfKeys];
 	    action[Mario.KEY_SPEED] = false;
 	}
+	*/
 }
