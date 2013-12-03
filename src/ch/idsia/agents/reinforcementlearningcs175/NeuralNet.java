@@ -92,6 +92,21 @@ public class NeuralNet
 	}
 	
 	/// Solves the network for the specified inputs
+	public boolean[] Solve(boolean[] input) throws IllegalArgumentException, IllegalStateException
+	{
+		//Convert to floats
+		float[] floatinput = new float[input.length];
+		for (int c = 0; c < input.length; c++)
+		{
+			if (input[c])
+				floatinput[c] = 1;
+			else
+				floatinput[c] = 0;
+		}
+		return Solve(floatinput);
+	}
+	
+	/// Solves the network for the specified inputs
 	public boolean[] Solve(float[] input) throws IllegalArgumentException, IllegalStateException
 	{
 		if (weights == null)
@@ -99,28 +114,55 @@ public class NeuralNet
 		if (input.length != GetInputDimension())
 			throw new IllegalArgumentException("Size of 'input' must match the size of the first layer of the net.");
 		
-		boolean[] result = null;
+		float[] result = input;
 		for (int c = 1; c < weights.length; c++)
 		{
-			//TODO: solve layers with SolveLayer and propagate
+			try
+			{
+				result = SolveLayer(c, result);
+			}
+			catch (Exception e)
+			{
+				//TODO: BIG ERROR
+				return null;
+			}
 		}
 		
-		return result;
+		//Threshold final results to bools
+		boolean[] finalres = new boolean[result.length];
+		for (int c = 0; c < result.length; c++)
+			finalres[c] = Threshold(result[c]);
+		
+		return finalres;
 	}
 	
-	private boolean[] SolveLayer(int layer, boolean[] previousLayer) throws Exception
+	private float[] SolveLayer(int layer, float[] previousLayer) throws Exception
 	{
 		if (previousLayer.length != weights[layer][0].length)
 			throw new Exception("Internal NeuralNet error: previous results vector is the wrong size.");
 		
-		//TODO: solve each perceptron in this layer based on the passed values
+		float[] result = new float[weights[layer].length];
+		for (int c = 0; c < weights[layer].length; c++)
+		{
+			float sum = 0;
+			for (int d = 0; d < weights[layer][c].length; d++)
+				sum += weights[layer][c][d] * previousLayer[d];
+			result[c] = sum;
+		}
 		
-		return null;
+		return result;
 	}
 	
 	/// Customizable activation function for the network
 	private boolean Threshold(float value)
 	{
 		return value > 0;
+	}
+	private float ThresholdToFloat(float value)
+	{
+		if (Threshold(value))
+			return 1;
+		else
+			return 0;
 	}
 }
