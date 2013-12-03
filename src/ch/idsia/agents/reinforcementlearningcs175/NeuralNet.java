@@ -88,13 +88,6 @@ public class NeuralNet
 			}
 		}
 		
-		//HACK: do this somewhere else
-		//Randomize weights
-		float[] tempweights = new float[this.size];
-		Random rand = new Random(System.currentTimeMillis());
-		for (int c = 0; c < this.size; c++)
-			tempweights[c] = rand.nextFloat() * 10 - 5;
-		SetWeights(tempweights);
 	}
 	
 	/// Solves the network for the specified inputs
