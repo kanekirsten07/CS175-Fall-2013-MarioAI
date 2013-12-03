@@ -1,5 +1,7 @@
 package ch.idsia.agents.reinforcementlearningcs175;
 
+import java.util.List;
+
 public interface IProjectManager
 {
 	/*
@@ -28,15 +30,39 @@ public interface IProjectManager
 
 	public int getLevelSeed();
 
-	public void setLevelSeed();
+	public void setLevelSeed(long seed);
 	
 	/*
 	 * Resets generaton count and clears the agent pool, as if we just started anew.
 	 */
-	public void resetAgents();
+	public void reset();
 
 	/*
 	 * Returns the top scoring agent.
 	 */
 	public GeneticManagerAgent getBestAgent();
+
+	/*
+	 * Setters and getters for whether the GUI (of Mario running through the level) is enabled.
+	 */
+	public boolean getGUIEnabled();
+
+	public void setGUIEnabled(boolean enabled);
+
+	/*
+	 * Runs a previous agent through the level.
+	 */
+	public void runPreviousAgent(int agentID);
+
+	public boolean agentExists(int agentID);
+
+	/*
+	 * Returns the agents in the current generation.
+	 */
+	public List<GeneticManagerAgent> getCurrentGeneration();
+
+	/*
+	 * Return the top "numberOfAgents" scoring agents of the current generation.
+	 */
+	public List<GeneticManagerAgent> getBestAgents(int numberOfAgents);
 }
