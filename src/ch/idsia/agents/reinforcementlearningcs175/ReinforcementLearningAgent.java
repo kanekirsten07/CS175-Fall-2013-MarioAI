@@ -34,6 +34,16 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent
 		return NN.GetWeights();
 	}
 
+	public IEnvironmentProcessor getEnvironmentProcessor()
+	{
+		return envProcessor;
+	}
+
+	public void setEnvironmentProcessor(IEnvironmentProcessor envProcessor)
+	{
+		this.envProcessor = envProcessor;
+	}
+
 	public boolean[] getAction()
 	{
 		// Determines the action to be taken by 
