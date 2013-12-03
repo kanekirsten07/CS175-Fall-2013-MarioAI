@@ -9,11 +9,14 @@ public class EnvironmentProcessor implements IEnvironmentProcessor{
 	
 	private ArrayList<Integer> environmentInts ;
 	private int inputsize ;
+	private int expectedArrayCapacity;
 	
 	public EnvironmentProcessor()
 	{
-		environmentInts = new ArrayList<Integer>(119);
+		
 		inputsize = 0;
+		 expectedArrayCapacity = 119;
+		 environmentInts = new ArrayList<Integer>(expectedArrayCapacity);
 	}
 	
 	public int getInputSize()
@@ -224,11 +227,15 @@ public class EnvironmentProcessor implements IEnvironmentProcessor{
 		       
 					}
 				}
-			fillSectionVoid(environmentInts.size()-1, 15-environmentStartInt * 5);
+			//System.out.println(environmentInts.size()-1 );
+			//System.out.println(15-environmentStartInt * 5);
+			fillSectionVoid(environmentInts.size()-1, expectedArrayCapacity-environmentInts.size());
 			
 			int [] myInts = ConvertToFromArray.convertToArray(environmentInts);
+			
 			environmentFloats = ConvertToFromArray.convertIntsToFloats(myInts);
 			this.inputsize = environmentFloats.length;
+		System.out.println(inputsize);
 			return environmentFloats;
 		}	
 		
