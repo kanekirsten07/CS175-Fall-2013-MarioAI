@@ -9,7 +9,7 @@ import ch.idsia.benchmark.mario.engine.sprites.Sprite;
 import ch.idsia.benchmark.mario.environments.Environment;
 import ch.idsia.benchmark.tasks.LearningTask;
 
-public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Agent, LearningAgent {
+public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Agent{
 
 	public ReinforcementLearningAgent() {
 		super("Reinforcement Learning Agent");
@@ -32,75 +32,25 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Age
 
 
 
-public boolean[] getAction()
-{
-    //action[Mario.KEY_SPEED] = action[Mario.KEY_JUMP] = isMarioAbleToJump || !isMarioOnGround;
+	public boolean[] getAction()
+	{
+	    //action[Mario.KEY_SPEED] = action[Mario.KEY_JUMP] = isMarioAbleToJump || !isMarioOnGround;
 
-	action[Mario.KEY_RIGHT] = true;
-	
-	action[Mario.KEY_JUMP] = isMarioAbleToJump || !isMarioOnGround;
-	//System.out.println( getReceptiveFieldCellValue(marioEgoRow +1 , marioEgoCol));
-    e.processEnvironment(this, this.marioEgoCol, this.marioEgoRow);
-    
-    return action;
-    
-	
-    //
-}
+		action[Mario.KEY_RIGHT] = true;
+		
+		action[Mario.KEY_JUMP] = isMarioAbleToJump || !isMarioOnGround;
+		//System.out.println( getReceptiveFieldCellValue(marioEgoRow +1 , marioEgoCol));
+	    e.processEnvironment(this, this.marioEgoCol, this.marioEgoRow);
+	    
+	    return action;
+	    
+		
+	    //
+	}
 
-public void reset()
-{
-	action = new boolean[Environment.numberOfKeys];
-    action[Mario.KEY_SPEED] = false;
-}
-
-
-@Override
-public void learn() {
-	// TODO Auto-generated method stub
-	
-}
-
-
-@Override
-public void giveReward(float reward) {
-	// TODO Auto-generated method stub
-	
-}
-
-
-@Override
-public void newEpisode() {
-	// TODO Auto-generated method stub
-	
-}
-
-
-@Override
-public void setLearningTask(LearningTask learningTask) {
-	// TODO Auto-generated method stub
-	
-}
-
-
-@Override
-public void setEvaluationQuota(long num) {
-	// TODO Auto-generated method stub
-	
-}
-
-
-@Override
-public Agent getBestAgent() {
-	// TODO Auto-generated method stub
-	return null;
-}
-
-
-@Override
-public void init() {
-	// TODO Auto-generated method stub
-	
-}
-
+	public void reset()
+	{
+		action = new boolean[Environment.numberOfKeys];
+	    action[Mario.KEY_SPEED] = false;
+	}
 }
