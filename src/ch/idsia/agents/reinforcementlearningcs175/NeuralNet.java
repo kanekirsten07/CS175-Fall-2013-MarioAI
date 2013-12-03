@@ -8,14 +8,13 @@ import java.util.Random;
 public class NeuralNet
 {
 	// Stats, for reference
-	private int[] layerSizes;
 	private int size;
 	
 	/// Get the size of the weight vector defining this net
 	public int GetSize() { return size; }
 	
-	public int GetInputDimension() { return layerSizes[0]; }
-	public int GetOutputDimension() { return layerSizes[layerSizes.length-1]; }
+	public int GetInputDimension() { return weights[0].length; }
+	public int GetOutputDimension() { return weights[weights.length-1].length; }
 	
 	// Structure
 	// First index is for the layer, second is for the node, third is for each weight going into that node
@@ -31,10 +30,10 @@ public class NeuralNet
 		
 		//Break the 1D array into the 3D structure we're actually using
 		int currentIWeight = 0;
-		for (int layer = 1; layer < layerSizes.length; layer++)
+		for (int layer = 1; layer < weights.length; layer++)
 		{
-			int numOfWeightsForNode = layerSizes[layer - 1];
-			for (int node = 0; node < layerSizes[layer]; node++)
+			int numOfWeightsForNode = weights[layer - 1].length;
+			for (int node = 0; node < weights[layer].length; node++)
 			{
 				for (int weight = 0; weight < numOfWeightsForNode; weight++)
 				{
@@ -52,10 +51,10 @@ public class NeuralNet
 		float[] oweights = new float[size];
 		
 		int currentOWeight = 0;
-		for (int layer = 1; layer < layerSizes.length; layer++)
+		for (int layer = 1; layer < weights.length; layer++)
 		{
-			int numOfWeightsForNode = layerSizes[layer - 1];
-			for (int node = 0; node < layerSizes[layer]; node++)
+			int numOfWeightsForNode = weights[layer - 1].length;
+			for (int node = 0; node < weights[layer].length; node++)
 			{
 				for (int weight = 0; weight < numOfWeightsForNode; weight++)
 				{
@@ -71,8 +70,6 @@ public class NeuralNet
 	/// Create a network with layers of the specified sizes (including input and output layers)
 	public NeuralNet(int[] layerSizes)
 	{
-		this.layerSizes = Arrays.copyOf(layerSizes, layerSizes.length);
-		
 		//Create weights data structure
 		this.size = 0;
 		this.weights = new float[layerSizes.length][][];
