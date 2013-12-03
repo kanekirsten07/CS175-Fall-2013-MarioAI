@@ -8,6 +8,18 @@ import ch.idsia.benchmark.mario.engine.sprites.Sprite;
 public class EnvironmentProcessor implements IEnvironmentProcessor{
 	
 	private ArrayList<Integer> environmentInts ;
+	private int inputsize ;
+	
+	public EnvironmentProcessor()
+	{
+		environmentInts = new ArrayList<Integer>(119);
+		inputsize = 0;
+	}
+	
+	public int getInputSize()
+	{
+		return inputsize;
+	}
 	
 	public float[] processEnvironment(BasicMarioAIAgent agent, int mariocol, int mariorow) {
 		int marioEgoCol = mariocol;
@@ -39,7 +51,7 @@ public class EnvironmentProcessor implements IEnvironmentProcessor{
 		 * canproduceitem
 		 */
 	
-			environmentInts = new ArrayList<Integer>(119);
+			
 			int enemyNum;
 			int environmentNum;
 			int enemyStartInt = 0;
@@ -216,7 +228,7 @@ public class EnvironmentProcessor implements IEnvironmentProcessor{
 			
 			int [] myInts = ConvertToFromArray.convertToArray(environmentInts);
 			environmentFloats = ConvertToFromArray.convertIntsToFloats(myInts);
-		
+			this.inputsize = environmentFloats.length;
 			return environmentFloats;
 		}	
 		
