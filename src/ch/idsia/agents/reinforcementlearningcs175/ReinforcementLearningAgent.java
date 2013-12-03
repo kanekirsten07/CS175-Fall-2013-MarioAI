@@ -12,50 +12,41 @@ import ch.idsia.benchmark.tasks.LearningTask;
 //public class ReinforcementLearningAgent extends BasicMarioAIAgent implements Agent{
 public class ReinforcementLearningAgent extends BasicMarioAIAgent 
 {
+	private IEnvironmentProcessor envProcessor;
+	private NeuralNet NN;
 
-	public ReinforcementLearningAgent() 
+	public ReinforcementLearningAgent(IEnvironmentProcessor envProcessor, int[] NNlayerSizes) 
 	{
 		super("Reinforcement Learning Agent");
 		reset();
-		 e = new EnvironmentProcessor();
+
+		this.envProcessor = envProcessor;
+		this.NN = new NeuralNet(NNlayerSizes);
 	}
 
-	public static final int KIND_BLOCK = -24;
-	public static final int KIND_GRASS = -60;
-	private String name;
-	int zLevelScene = 1;
-	int zLevelEnemies = 0;
-	EnvironmentProcessor e;
-	//To be used to store the moves mario makes, can then manipulate to implement genetic algorithm
-		
-	
-	//public String getName() { return name; }
+	public void setNNWeights(float[] weights) throws IllegalArgumentException
+	{
+		NN.SetWeights(weights);
+	}
 
-	//public void setName(String Name) { this.name = Name; }
-
-
+	public float[] getNNWeights()
+	{
+		return NN.GetWeights();
+	}
 
 	public boolean[] getAction()
 	{
-	    //action[Mario.KEY_SPEED] = action[Mario.KEY_JUMP] = isMarioAbleToJump || !isMarioOnGround;
-
-		action[Mario.KEY_RIGHT] = true;
+		// Determines the action to be taken by 
+		// 1. Using the IEnvironmentProcessor to determine the inputs to the NN.
 		
-		action[Mario.KEY_JUMP] = isMarioAbleToJump || !isMarioOnGround;
-		//System.out.println( getReceptiveFieldCellValue(marioEgoRow +1 , marioEgoCol));
-	    e.processEnvironment(this, this.marioEgoCol, this.marioEgoRow);
-	    
-	    return action;
-	    
-		
-	    //
-	}
+		float[] NNInputs = envProcessor.processEnvironment(this, this.marioEgoCol, this.marioEgoRow);
 
-	/*
-	public void reset()
-	{
-		action = new boolean[Environment.numberOfKeys];
-	    action[Mario.KEY_SPEED] = false;
+		// 2. Pass the inputs from 1 to the NN.
+		
+		action = NN.Solve(NNInputs);
+
+		// 3. Return the output of the NN.
+		
+		return action;
 	}
-	*/
 }
