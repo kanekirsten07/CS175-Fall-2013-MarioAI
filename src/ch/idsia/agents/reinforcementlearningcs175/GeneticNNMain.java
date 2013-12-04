@@ -9,11 +9,13 @@ public final class GeneticNNMain
 		float[] best = new float[119];
 		float best_score = Float.MIN_VALUE;
 
+		// Config me if you want!!
 		int generations_to_run = 60;
 		int size_of_generation = 15;
+		int level_seed = 50;
 
 
-		projectManager.setLevelSeed(50);
+		projectManager.setLevelSeed(level_seed);
 		for(int i = 0; i < generations_to_run; i++)
 		{
 			//projectManager.setGUIEnabled(false);
