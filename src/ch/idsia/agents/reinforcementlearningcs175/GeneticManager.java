@@ -18,8 +18,15 @@ public class GeneticManager
 	 */
 	private float topPercentageToSave;
 	
+	public GeneticManager()
+	{
+		//HACK
+		this(5, (119 * 300) + (300 * 300) + (300 * 6));
+	}
+
 	public GeneticManager(float topPercentageToSave, int initialNumOfWeights)
 	{
+		geneticAlgorithm = new GeneticAlgorithm();
 		parentWeights1 = createRandomWeights(initialNumOfWeights);
 		parentWeights2 = createRandomWeights(initialNumOfWeights);
 
@@ -193,7 +200,8 @@ public class GeneticManager
 		float[] tempweights = new float[size];
 		Random rand = new Random(System.currentTimeMillis());
 		for (int c = 0; c < size; c++)
-			tempweights[c] = rand.nextFloat() * 10 - 5;
+			tempweights[c] = rand.nextFloat() * 5 - 5;
+			//tempweights[c] = rand.nextFloat() * 10 - 5;
 		return tempweights;
 	}
 }
