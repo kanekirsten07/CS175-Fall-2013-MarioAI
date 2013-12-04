@@ -22,7 +22,7 @@ public class ProjectManager implements IProjectManager
 		marioAIOptions = new MarioAIOptions();
 		marioAIOptions.setAgent(agent);
 		// Initialize with visualization off
-		marioAIOptions.setTimeLimit(60);
+		marioAIOptions.setTimeLimit(100);
 		marioAIOptions.setVisualization(false);
 
 		task = new BasicTask(marioAIOptions);

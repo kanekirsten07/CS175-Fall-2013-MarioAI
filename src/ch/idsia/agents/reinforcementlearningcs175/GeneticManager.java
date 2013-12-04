@@ -198,7 +198,7 @@ public class GeneticManager
 		}
 		top_agent = agents.get(highest_score_index);
 		agents.remove(highest_score_index);
-		parentWeights1 = top_agent.getAgentWeights();
+		parentWeights1 = Arrays.copyOf(top_agent.getAgentWeights(), top_agent.getAgentWeights().length);
 		System.err.println("Top score: "+top_agent.getAgentScore());
 
 		// Find second highest score
@@ -214,7 +214,7 @@ public class GeneticManager
 		}
 		top_agent = agents.get(highest_score_index);
 		agents.remove(highest_score_index);
-		parentWeights2 = top_agent.getAgentWeights();
+		parentWeights2 = Arrays.copyOf(top_agent.getAgentWeights(), top_agent.getAgentWeights().length);
 		System.err.println("2nd Top score: "+top_agent.getAgentScore());
 		
 		agents.clear();

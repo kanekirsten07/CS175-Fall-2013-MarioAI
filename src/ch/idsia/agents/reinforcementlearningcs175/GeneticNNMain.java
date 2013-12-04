@@ -9,12 +9,16 @@ public final class GeneticNNMain
 		float[] best = new float[119];
 		float best_score = Float.MIN_VALUE;
 
+		int generations_to_run = 60;
+		int size_of_generation = 15;
+
+
 		projectManager.setLevelSeed(50);
-		for(int i = 0; i < 40; i++)
+		for(int i = 0; i < generations_to_run; i++)
 		{
 			//projectManager.setGUIEnabled(false);
 			//projectManager.setGUIEnabled(true);
-			projectManager.genAndRunNewAgents(15);
+			projectManager.genAndRunNewAgents(size_of_generation);
 			System.err.println("Generation " + i + " TopScore: " + projectManager.getBestAgent().getAgentScore());
 			if(projectManager.getBestAgent().getAgentScore() > best_score)
 			{

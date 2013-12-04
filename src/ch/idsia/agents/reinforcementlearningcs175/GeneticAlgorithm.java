@@ -1,5 +1,6 @@
 package ch.idsia.agents.reinforcementlearningcs175;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 public class GeneticAlgorithm {
 	
@@ -8,7 +9,9 @@ public class GeneticAlgorithm {
 	
 	public float[] createChild(float[] a, float[] b)
 	{
-		Descendents d = this.createDescendents(a, b);
+		float[] a_copy = Arrays.copyOf(a, a.length);
+		float[] b_copy = Arrays.copyOf(b, b.length);
+		Descendents d = this.createDescendents(a_copy, b_copy);
 		float[] toReturn = d.getDescendents().get(0);
 		Mutate(toReturn);
 		return toReturn;
