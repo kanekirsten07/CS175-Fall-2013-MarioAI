@@ -9,8 +9,9 @@ public class GeneticAlgorithm {
 	public float[] createChild(float[] a, float[] b)
 	{
 		Descendents d = this.createDescendents(a, b);
-		Mutate(a);	
-		return a;
+		float[] toReturn = d.getDescendents().get(0);
+		Mutate(toReturn);
+		return toReturn;
 	}
 
 
