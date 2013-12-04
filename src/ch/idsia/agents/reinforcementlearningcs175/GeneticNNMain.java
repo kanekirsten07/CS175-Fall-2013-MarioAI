@@ -1,5 +1,7 @@
 package ch.idsia.agents.reinforcementlearningcs175;
 
+import java.util.Arrays;
+
 public final class GeneticNNMain
 {
 	public static void main(String[] args)
@@ -25,7 +27,7 @@ public final class GeneticNNMain
 			if(projectManager.getBestAgent().getAgentScore() > best_score)
 			{
 				best_score = projectManager.getBestAgent().getAgentScore();
-				best = projectManager.getBestAgent().getAgentWeights();
+				best = Arrays.copyOf(projectManager.getBestAgent().getAgentWeights(), projectManager.getBestAgent().getAgentWeights().length);
 			}
 			projectManager.purgeCurrentGeneration();
 		}
