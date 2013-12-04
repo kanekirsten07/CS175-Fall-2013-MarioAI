@@ -1,5 +1,6 @@
 package ch.idsia.agents.reinforcementlearningcs175;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class GeneticManager 
@@ -50,7 +51,7 @@ public class GeneticManager
 	
 	public void saveAgent(float[] weights, float score)
 	{
-		agents.add(new GeneticManagerAgent(currentAgentCount, weights, score));
+		agents.add(new GeneticManagerAgent(currentAgentCount, Arrays.copyOf(weights,weights.length), score));
 		++currentAgentCount;
 	}
 	
