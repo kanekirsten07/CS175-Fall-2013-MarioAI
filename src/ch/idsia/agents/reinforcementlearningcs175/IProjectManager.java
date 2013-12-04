@@ -31,7 +31,7 @@ public interface IProjectManager
 
 	public int getLevelSeed();
 
-	public void setLevelSeed(long seed);
+	public void setLevelSeed(int seed);
 	
 	/*
 	 * Resets generaton count and clears the agent pool, as if we just started anew.

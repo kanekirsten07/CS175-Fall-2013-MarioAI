@@ -201,6 +201,9 @@ public class EnvironmentProcessor implements IEnvironmentProcessor{
 					for(int row = marioEgoRow; row < marioEgoRow + 20; row++)
 					{
 		       environmentNum = agent.getReceptiveFieldCellValue(marioEgoRow , marioEgoCol);
+		       // HACK
+		       if(environmentInts.size() + 5 > 119) { environmentNum = 0; }
+		       // ENDHACK
 		       switch(environmentNum)
 		       {
 		       case(-60):

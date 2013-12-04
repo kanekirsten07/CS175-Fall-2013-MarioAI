@@ -56,10 +56,20 @@ public class GeneticManager
 	
 	public GeneticManagerAgent getAgent(int agentID)
 	{
+		/*
 		if(agentID < currentAgentCount)
 			return agents.get(agentID);
 		else
 			return null;
+			*/
+		for(GeneticManagerAgent temp_agent : agents)
+		{
+			if(temp_agent.getAgentID() == agentID)
+			{
+				return temp_agent;
+			}
+		}
+		return null;
 	}
 	
 	public float[] getAgentWeights(int agentID)
@@ -173,14 +183,37 @@ public class GeneticManager
 		{
 			return false;
 		}
-		GeneticManagerAgent topAgent1 = getHighestScoringAgent();
-		agents.remove(topAgent1.getAgentID());
-		parentWeights1 = topAgent1.getAgentWeights();
+		// First find highest score
+		float highest_score = Float.MIN_VALUE;
+		int highest_score_index = 0;
+		GeneticManagerAgent top_agent;
+		for(int i = 0 ; i < agents.size(); i++)
+		{
+			if(agents.get(i).getAgentScore() > highest_score)
+			{
+				highest_score_index = i;
+				highest_score = agents.get(i).getAgentScore();
+			}
+		}
+		top_agent = agents.get(highest_score_index);
+		agents.remove(highest_score_index);
+		parentWeights1 = top_agent.getAgentWeights();
 
-		GeneticManagerAgent topAgent2 = getHighestScoringAgent();
-		agents.remove(topAgent2.getAgentID());
-		parentWeights2 = topAgent2.getAgentWeights();
-
+		// Find second highest score
+		highest_score = Float.MIN_VALUE;
+		highest_score_index = 0;
+		for(int i = 0 ; i < agents.size(); i++)
+		{
+			if(agents.get(i).getAgentScore() > highest_score)
+			{
+				highest_score_index = i;
+				highest_score = agents.get(i).getAgentScore();
+			}
+		}
+		top_agent = agents.get(highest_score_index);
+		agents.remove(highest_score_index);
+		parentWeights2 = top_agent.getAgentWeights();
+		
 		agents.clear();
 		generationNumber++;
 		return true;

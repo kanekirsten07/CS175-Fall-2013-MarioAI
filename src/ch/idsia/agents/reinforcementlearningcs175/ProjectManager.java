@@ -1,15 +1,33 @@
 package ch.idsia.agents.reinforcementlearningcs175;
 
+import ch.idsia.benchmark.tasks.BasicTask;
+import ch.idsia.tools.MarioAIOptions;
+
 import java.util.List;
 
 public class ProjectManager implements IProjectManager
 {
 	private ReinforcementLearningAgent agent;
-	private GeneticManager genMan;
+	private GeneticManager geneticManager;
+	private boolean GUIEnabled;
+
+	private MarioAIOptions marioAIOptions;
+	private BasicTask task;
+
 
 	public ProjectManager()
 	{
+		agent = new ReinforcementLearningAgent();
 
+		marioAIOptions = new MarioAIOptions();
+		marioAIOptions.setAgent(agent);
+		// Initialize with visualization off
+		marioAIOptions.setVisualization(false);
+
+		task = new BasicTask(marioAIOptions);
+		task.setOptionsAndReset(marioAIOptions);
+		
+		geneticManager = new GeneticManager();
 	}
 
 	/*
@@ -20,7 +38,18 @@ public class ProjectManager implements IProjectManager
 	 */
 	public void genAndRunNewAgents(int numberOfAgents)
 	{
-		
+		for(int i = 0; i < numberOfAgents; i++)
+		{
+			task.setOptionsAndReset(marioAIOptions);
+
+			float[] weights = geneticManager.generateNewChild();
+			agent.setNNWeights(weights);
+			//task.doEpisodes(1,true,1);
+			task.runSingleEpisode(1);
+			int score = task.getEnvironment().getEvaluationInfo().computeBasicFitness();
+			System.err.println("	"+(float)score);
+			geneticManager.saveAgent(weights, (float) score);
+		}
 	}
 	
 	/*
@@ -28,8 +57,7 @@ public class ProjectManager implements IProjectManager
 	 */
 	public int getGenerationSize()
 	{
-		//TODO
-		return 0;
+		return geneticManager.getGenerationSize();
 	}
 
 	/*
@@ -37,28 +65,28 @@ public class ProjectManager implements IProjectManager
 	 */
 	public int getGenerationNumber()
 	{
-		//TODO
-		return 0;
+		return geneticManager.getGenerationNumber();
 	}
 
 	/*
-	 * Purges the current pool of agents, keeping the top numberOfAgentsToKeep agents for the next generation.
+	 * Purges the current pool of agents, keeping the top 2 agents to generate the next generation.
 	 * Increases the generation number by 1.
 	 */
-	public int purgeCurrentGeneration(int numberOfAgentsToKeep)
+	//public int purgeCurrentGeneration(int numberOfAgentsToKeep);
+	public boolean purgeCurrentGeneration()
 	{
-		//TODO
-		return 0;
+		return geneticManager.clearAllExceptTopTwo();
 	}
 
 	public int getLevelSeed()
 	{
-		//TODO
-		return 0;
+		return marioAIOptions.getLevelRandSeed();
 	}
 
-	public void setLevelSeed(long seed)
+	public void setLevelSeed(int seed)
 	{
+		marioAIOptions.setLevelRandSeed(seed);
+		task.setOptionsAndReset(marioAIOptions);
 	}
 	
 	/*
@@ -66,6 +94,7 @@ public class ProjectManager implements IProjectManager
 	 */
 	public void reset()
 	{
+		//TODO
 	}
 
 	/*
@@ -73,8 +102,7 @@ public class ProjectManager implements IProjectManager
 	 */
 	public GeneticManagerAgent getBestAgent()
 	{
-		//TODO
-		return null;
+		return geneticManager.getHighestScoringAgent();
 	}
 
 	/*
@@ -82,12 +110,13 @@ public class ProjectManager implements IProjectManager
 	 */
 	public boolean getGUIEnabled()
 	{
-		return true;
+		return marioAIOptions.isVisualization();
 	}
 
 	public void setGUIEnabled(boolean enabled)
 	{
-
+		marioAIOptions.setVisualization(enabled);
+		task.setOptionsAndReset(marioAIOptions);
 	}
 
 	/*
@@ -95,12 +124,18 @@ public class ProjectManager implements IProjectManager
 	 */
 	public void runPreviousAgent(int agentID)
 	{
+		GeneticManagerAgent tempAgent = geneticManager.getAgent(agentID);
+		
+		task.setOptionsAndReset(marioAIOptions);
 
+		float[] weights = tempAgent.getAgentWeights();
+		agent.setNNWeights(weights);
+		task.runSingleEpisode(1);
 	}
 
 	public boolean agentExists(int agentID)
 	{
-		return true;
+		return (geneticManager.getAgent(agentID) != null);
 	}
 
 	/*
@@ -108,6 +143,7 @@ public class ProjectManager implements IProjectManager
 	 */
 	public List<GeneticManagerAgent> getCurrentGeneration()
 	{
+		//TODO
 		return null;
 	}
 
@@ -116,6 +152,7 @@ public class ProjectManager implements IProjectManager
 	 */
 	public List<GeneticManagerAgent> getBestAgents(int numberOfAgents)
 	{
+		// TODO
 		return null;
 	}
 }
