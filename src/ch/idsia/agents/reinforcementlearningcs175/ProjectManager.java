@@ -46,8 +46,14 @@ public class ProjectManager implements IProjectManager
 			float[] weights = geneticManager.generateNewChild();
 			agent.setNNWeights(weights);
 			//task.doEpisodes(1,true,1);
-			task.runSingleEpisode(1);
-			int score = task.getEnvironment().getEvaluationInfo().computeBasicFitness();
+			boolean haveValidResult = false;
+			while(!haveValidResult)
+			{
+				task.setOptionsAndReset(marioAIOptions);
+				haveValidResult = task.runSingleEpisode(1);
+			}
+
+			int score = task.getEnvironment().getEvaluationInfo().computeWeightedFitness();
 			System.err.println("	"+(float)score);
 			geneticManager.saveAgent(weights, (float) score);
 		}
@@ -139,7 +145,7 @@ public class ProjectManager implements IProjectManager
 		task.setOptionsAndReset(marioAIOptions);
 		agent.setNNWeights(weights);
 		task.runSingleEpisode(1);
-		System.err.println(task.getEnvironment().getEvaluationInfo().computeBasicFitness());
+		System.err.println(task.getEnvironment().getEvaluationInfo().computeWeightedFitness());
 	}
 
 	public boolean agentExists(int agentID)
