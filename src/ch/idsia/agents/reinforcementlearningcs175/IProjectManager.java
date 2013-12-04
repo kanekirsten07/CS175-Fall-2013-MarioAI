@@ -23,10 +23,11 @@ public interface IProjectManager
 	public int getGenerationNumber();
 
 	/*
-	 * Purges the current pool of agents, keeping the top numberOfAgentsToKeep agents for the next generation.
+	 * Purges the current pool of agents, keeping the top 2 agents to generate the next generation.
 	 * Increases the generation number by 1.
 	 */
-	public int purgeCurrentGeneration(int numberOfAgentsToKeep);
+	//public int purgeCurrentGeneration(int numberOfAgentsToKeep);
+	public boolean purgeCurrentGeneration();
 
 	public int getLevelSeed();
 
