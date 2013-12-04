@@ -55,6 +55,8 @@ public interface IProjectManager
 	 */
 	public void runPreviousAgent(int agentID);
 
+	public void runWeights(float[] weights);
+
 	public boolean agentExists(int agentID);
 
 	/*

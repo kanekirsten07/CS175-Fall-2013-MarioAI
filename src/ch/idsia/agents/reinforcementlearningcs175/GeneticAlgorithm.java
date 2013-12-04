@@ -82,7 +82,7 @@ public class GeneticAlgorithm {
 	private void flipCoin()
 	{
 		Random r = new Random();
-		int r1 = r.nextInt(1);
+		int r1 = r.nextInt(2);
 		if(r1 == 1)
 		{
 			randAdd = -randAdd;

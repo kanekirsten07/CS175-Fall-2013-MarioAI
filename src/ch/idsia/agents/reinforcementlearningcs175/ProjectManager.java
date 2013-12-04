@@ -22,6 +22,7 @@ public class ProjectManager implements IProjectManager
 		marioAIOptions = new MarioAIOptions();
 		marioAIOptions.setAgent(agent);
 		// Initialize with visualization off
+		marioAIOptions.setTimeLimit(60);
 		marioAIOptions.setVisualization(false);
 
 		task = new BasicTask(marioAIOptions);
@@ -131,6 +132,14 @@ public class ProjectManager implements IProjectManager
 		float[] weights = tempAgent.getAgentWeights();
 		agent.setNNWeights(weights);
 		task.runSingleEpisode(1);
+	}
+
+	public void runWeights(float[] weights)
+	{
+		task.setOptionsAndReset(marioAIOptions);
+		agent.setNNWeights(weights);
+		task.runSingleEpisode(1);
+		System.err.println(task.getEnvironment().getEvaluationInfo().computeBasicFitness());
 	}
 
 	public boolean agentExists(int agentID)

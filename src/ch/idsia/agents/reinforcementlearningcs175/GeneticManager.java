@@ -184,7 +184,7 @@ public class GeneticManager
 			return false;
 		}
 		// First find highest score
-		float highest_score = Float.MIN_VALUE;
+		float highest_score = agents.get(0).getAgentScore();
 		int highest_score_index = 0;
 		GeneticManagerAgent top_agent;
 		for(int i = 0 ; i < agents.size(); i++)
@@ -198,9 +198,10 @@ public class GeneticManager
 		top_agent = agents.get(highest_score_index);
 		agents.remove(highest_score_index);
 		parentWeights1 = top_agent.getAgentWeights();
+		System.err.println("Top score: "+top_agent.getAgentScore());
 
 		// Find second highest score
-		highest_score = Float.MIN_VALUE;
+		highest_score = agents.get(0).getAgentScore();
 		highest_score_index = 0;
 		for(int i = 0 ; i < agents.size(); i++)
 		{
@@ -213,6 +214,7 @@ public class GeneticManager
 		top_agent = agents.get(highest_score_index);
 		agents.remove(highest_score_index);
 		parentWeights2 = top_agent.getAgentWeights();
+		System.err.println("2nd Top score: "+top_agent.getAgentScore());
 		
 		agents.clear();
 		generationNumber++;
@@ -233,8 +235,26 @@ public class GeneticManager
 		float[] tempweights = new float[size];
 		Random rand = new Random(System.currentTimeMillis());
 		for (int c = 0; c < size; c++)
-			tempweights[c] = rand.nextFloat() * 5 - 5;
-			//tempweights[c] = rand.nextFloat() * 10 - 5;
+		{
+			// Testing different generation of weights turned into a sillier way to generate weights
+			switch(c%4)
+			{
+				case 0:
+					tempweights[c] = rand.nextFloat() * -5;
+					break;
+				case 1:
+					tempweights[c] = rand.nextFloat() * 5 - 5;
+					break;
+				case 2:
+					tempweights[c] = rand.nextFloat() * 10 - 5;
+					break;
+				case 3:
+					tempweights[c] = rand.nextFloat() * -20 - 5;
+					break;
+				default:
+					tempweights[c] = rand.nextFloat() * 2 - 2;
+			}
+		}
 		return tempweights;
 	}
 }

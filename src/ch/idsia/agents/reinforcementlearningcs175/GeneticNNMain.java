@@ -6,17 +6,27 @@ public final class GeneticNNMain
 	{
 		IProjectManager projectManager = new ProjectManager();
 		
+		float[] best = new float[119];
+		float best_score = Float.MIN_VALUE;
 
-		for(int i = 0; i < 10; i++)
+		projectManager.setLevelSeed(50);
+		for(int i = 0; i < 40; i++)
 		{
-			projectManager.setGUIEnabled(false);
-			projectManager.genAndRunNewAgents(20);
+			//projectManager.setGUIEnabled(false);
+			//projectManager.setGUIEnabled(true);
+			projectManager.genAndRunNewAgents(15);
 			System.err.println("Generation " + i + " TopScore: " + projectManager.getBestAgent().getAgentScore());
+			if(projectManager.getBestAgent().getAgentScore() > best_score)
+			{
+				best_score = projectManager.getBestAgent().getAgentScore();
+				best = projectManager.getBestAgent().getAgentWeights();
+			}
 			projectManager.purgeCurrentGeneration();
 		}
-		projectManager.genAndRunNewAgents(1);
+
+		System.err.println("Best score: " + best_score);
 		projectManager.setGUIEnabled(true);
-		projectManager.runPreviousAgent(projectManager.getBestAgent().getAgentID());
+		projectManager.runWeights(best);
 
 		System.exit(0);
 	}
