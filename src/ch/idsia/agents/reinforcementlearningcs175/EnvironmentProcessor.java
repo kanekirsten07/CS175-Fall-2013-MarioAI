@@ -198,11 +198,11 @@ public class EnvironmentProcessor implements IEnvironmentProcessor{
 			outerloop3:
 				for(int col = marioEgoCol - 20; col < marioEgoCol + 20; col++)
 				{			
-					for(int row = marioEgoRow; row < marioEgoRow + 20; row++)
+					for(int row = marioEgoRow; row > 0; row--)
 					{
 		       environmentNum = agent.getReceptiveFieldCellValue(marioEgoRow , marioEgoCol);
 		       // HACK
-		       if(environmentInts.size() + 5 > 119) { environmentNum = 0; }
+		      // if(environmentInts.size() + 5 > 119) { environmentNum = 0; }
 		       // ENDHACK
 		       switch(environmentNum)
 		       {
@@ -224,7 +224,7 @@ public class EnvironmentProcessor implements IEnvironmentProcessor{
 		       default:
 		    	   break;
 		       }
-		    	   if(goodThingsStartInt == 5)
+		    	   if(environmentStartInt == 5)
 			       {
 			    	   break outerloop3;
 			       }
