@@ -142,9 +142,13 @@ public class ProjectManager implements IProjectManager
 
 	public void runWeights(float[] weights)
 	{
-		task.setOptionsAndReset(marioAIOptions);
+		boolean haveValidResult = false;
 		agent.setNNWeights(weights);
-		task.runSingleEpisode(1);
+		while(!haveValidResult)
+		{
+			task.setOptionsAndReset(marioAIOptions);
+			haveValidResult = task.runSingleEpisode(1);
+		}
 		System.err.println(task.getEnvironment().getEvaluationInfo().computeWeightedFitness());
 	}
 
