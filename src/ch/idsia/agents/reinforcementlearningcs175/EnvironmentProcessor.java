@@ -7,21 +7,20 @@ import ch.idsia.benchmark.mario.engine.sprites.Sprite;
 
 public class EnvironmentProcessor implements IEnvironmentProcessor{
 	
-	private ArrayList<Integer> environmentInts ;
-	private int inputsize ;
+	private ArrayList<Integer> environmentInts;
+	private int inputsize;
 	private int expectedArrayCapacity;
 	
 	public EnvironmentProcessor()
 	{
-		
 		inputsize = 0;
-		 expectedArrayCapacity = 119;
-		 environmentInts = new ArrayList<Integer>(expectedArrayCapacity);
+		expectedArrayCapacity = 119;
+		environmentInts = new ArrayList<Integer>(expectedArrayCapacity);
 	}
 	
 	public int getInputSize()
 	{
-		return inputsize;
+		return expectedArrayCapacity;
 	}
 	
 	public float[] processEnvironment(BasicMarioAIAgent agent, int mariocol, int mariorow) {

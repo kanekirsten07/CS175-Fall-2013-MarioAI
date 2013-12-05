@@ -53,21 +53,21 @@ protected float[] enemiesFloatPos = null;
 
 protected int[] marioState = null;
 
-protected int marioStatus;
-protected int marioMode;
-protected boolean isMarioOnGround;
-protected boolean isMarioAbleToJump;
-protected boolean isMarioAbleToShoot;
-protected boolean isMarioCarrying;
-protected int getKillsTotal;
-protected int getKillsByFire;
-protected int getKillsByStomp;
-protected int getKillsByShell;
+public int marioStatus;
+public int marioMode;
+public boolean isMarioOnGround;
+public boolean isMarioAbleToJump;
+public boolean isMarioAbleToShoot;
+public boolean isMarioCarrying;
+public int getKillsTotal;
+public int getKillsByFire;
+public int getKillsByStomp;
+public int getKillsByShell;
 
-protected int receptiveFieldWidth;
-protected int receptiveFieldHeight;
-protected int marioEgoRow;
-protected int marioEgoCol;
+public int receptiveFieldWidth;
+public int receptiveFieldHeight;
+public int marioEgoRow;
+public int marioEgoCol;
 
 // values of these variables could be changed during the Agent-Environment interaction.
 // Use them to get more detailed or less detailed description of the level.
