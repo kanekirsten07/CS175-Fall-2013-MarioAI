@@ -9,7 +9,7 @@ public final class GeneticNNMain
 		IProjectManager projectManager = new ProjectManager();
 		
 		float[] best = new float[119];
-		float best_score = Float.MIN_VALUE;
+		float best_score = -(Float.MIN_VALUE);
 
 		// Config me if you want!!
 		int generations_to_run = 60;

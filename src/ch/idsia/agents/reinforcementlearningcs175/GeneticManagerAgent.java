@@ -1,5 +1,7 @@
 package ch.idsia.agents.reinforcementlearningcs175;
 
+import java.util.Arrays;
+
 public class GeneticManagerAgent 
 {
 	private int 		agentID;
@@ -9,7 +11,7 @@ public class GeneticManagerAgent
 	public GeneticManagerAgent(int agentID, float[] weights, float score)
 	{
 		this.agentID = agentID;
-		this.agentWeights = weights;
+		this.agentWeights = Arrays.copyOf(weights, weights.length);
 		this.agentScore = score;
 	}
 
