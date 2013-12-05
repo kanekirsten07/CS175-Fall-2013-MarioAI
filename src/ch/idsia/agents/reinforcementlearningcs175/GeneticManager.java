@@ -11,6 +11,8 @@ public class GeneticManager
 	private float[] parentWeights1;
 	private float[] parentWeights2;
 	private GeneticAlgorithm geneticAlgorithm;
+	
+	public static int[] NetWeights = new int[] { 119, 500, 300, 6 };
 
 	private int generationNumber;
 
@@ -22,7 +24,7 @@ public class GeneticManager
 	public GeneticManager()
 	{
 		//HACK
-		this(5, (119 * 300) + (300 * 300) + (300 * 6));
+		this(5, NeuralNet.TheoreticalSizeOf(NetWeights));
 	}
 
 	public GeneticManager(float topPercentageToSave, int initialNumOfWeights)
