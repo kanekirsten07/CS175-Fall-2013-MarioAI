@@ -21,6 +21,16 @@ public class NeuralNet
 	private float[][][] weights;
 	//TODO: optimization: Make a SparseArray class and use it for this for speed and memory
 	
+	public static int TheoreticalSizeOf(int[] weights)
+	{
+		int result = 0;
+		for (int c = 1; c < weights.length; c++)
+		{
+			result += weights[c] * weights[c-1];
+		}
+		return result;
+	}
+	
 	/// Sets the weights for the NN from a 1D array representation.
 	public void SetWeights(float[] iweights) throws IllegalArgumentException
 	{
