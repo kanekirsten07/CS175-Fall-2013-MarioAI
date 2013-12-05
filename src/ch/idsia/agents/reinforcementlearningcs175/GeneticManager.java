@@ -12,7 +12,9 @@ public class GeneticManager
 	private float[] parentWeights2;
 	private GeneticAlgorithm geneticAlgorithm;
 	
-	public static int[] NetWeights = new int[] { 119, 500, 300, 6 };
+	// First weight is now just a placeholder, filled in by EnvironmentProcessor later
+	public static int[] NetWeights = new int[] { 0, 20, 6 };
+	public static IEnvironmentProcessor EnvironmentProcessor = new SimpleGridEnvironmentProcessor();
 
 	private int generationNumber;
 

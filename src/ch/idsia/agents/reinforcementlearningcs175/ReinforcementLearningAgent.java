@@ -17,16 +17,16 @@ public class ReinforcementLearningAgent extends BasicMarioAIAgent
 
 	public ReinforcementLearningAgent()
 	{
-		//HACK: hardcoding
-		this(new EnvironmentProcessor(), GeneticManager.NetWeights);
+		this(GeneticManager.EnvironmentProcessor, GeneticManager.NetWeights);
 	}
 
 	public ReinforcementLearningAgent(IEnvironmentProcessor envProcessor, int[] NNlayerSizes) 
 	{
 		super("Reinforcement Learning Agent");
 		reset();
-
+		
 		this.envProcessor = envProcessor;
+		NNlayerSizes[0] = this.envProcessor.getInputSize();
 		this.NN = new NeuralNet(NNlayerSizes);
 	}
 
