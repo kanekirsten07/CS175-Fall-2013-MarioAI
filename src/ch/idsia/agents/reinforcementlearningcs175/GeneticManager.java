@@ -253,6 +253,7 @@ public class GeneticManager
 		}
 		
 		// Start adding agents to the tournament pool.		
+		tournamentPool.clear();
 		for (GeneticManagerAgent a : agents)
 		{
 			GeneticManagerAgent b = a;
@@ -268,16 +269,7 @@ public class GeneticManager
 				tournamentPool.add(b);
 		}		
 		
-		GeneticManagerAgent parentAgent = getRandomTournamentAgent();
-		parentWeights1 = Arrays.copyOf(parentAgent.getAgentWeights(), parentAgent.getAgentWeights().length);
-		System.err.println("Score 1: " + parentAgent.getAgentScore());
-		
-		parentAgent = getRandomTournamentAgent();
-		parentWeights2 = Arrays.copyOf(parentAgent.getAgentWeights(), parentAgent.getAgentWeights().length);
-		System.err.println("Score 2: " + parentAgent.getAgentScore());		
-		
 		agents.clear();		
-		tournamentPool.clear();
 		generationNumber++;
 		
 		return true;
@@ -292,7 +284,22 @@ public class GeneticManager
 	// Simply needs to call the GeneticAlgorithm's createChild method and return the float[]
 	public float[] generateNewChild()
 	{			
-		return geneticAlgorithm.createChild(parentWeights1, parentWeights2);
+		if(tournamentPool.size() > 0)
+		{
+			GeneticManagerAgent parentAgent = getRandomTournamentAgent();
+			float[] tournamentWeights1 = Arrays.copyOf(parentAgent.getAgentWeights(), parentAgent.getAgentWeights().length);
+			System.err.println("Score 1: " + parentAgent.getAgentScore());
+			
+			parentAgent = getRandomTournamentAgent();
+			float[] tournamentWeights2 = Arrays.copyOf(parentAgent.getAgentWeights(), parentAgent.getAgentWeights().length);
+			System.err.println("Score 2: " + parentAgent.getAgentScore());		
+			
+			return geneticAlgorithm.createChild(tournamentWeights1, tournamentWeights2);
+		}		
+		else
+		{
+			return geneticAlgorithm.createChild(parentWeights1, parentWeights2);
+		}
 	}
 
 	private float[] createRandomWeights(int size)
