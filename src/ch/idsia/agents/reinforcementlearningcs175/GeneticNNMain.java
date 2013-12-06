@@ -56,7 +56,7 @@ public final class GeneticNNMain
 		try
 		{
 			PrintStream stream = new PrintStream(outputFile);
-			float[] bestweights = projectManager.getBestAgent().getAgentWeights();
+			float[] bestweights = projectManager.getOverallBestAgent().getAgentWeights();
 			stream.println(bestweights.length);
 			for (int c = 0; c < bestweights.length; c++)
 				stream.println(bestweights[c]);
@@ -77,9 +77,9 @@ public final class GeneticNNMain
 			
 		}
 		
-		System.err.println("Best score: " + projectManager.getBestAgent().getAgentScore());
+		System.err.println("Best score: " + projectManager.getOverallBestAgent().getAgentScore());
 		projectManager.setGUIEnabled(true);
-		projectManager.runWeights(projectManager.getBestAgent().getAgentWeights());
+		projectManager.runWeights(projectManager.getOverallBestAgent().getAgentWeights());
 
 		System.exit(0);
 	}
