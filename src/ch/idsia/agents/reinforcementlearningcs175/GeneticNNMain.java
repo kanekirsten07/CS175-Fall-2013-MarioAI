@@ -10,6 +10,13 @@ public final class GeneticNNMain
 	public static void main(String[] args)
 	{
 		IProjectManager projectManager = new ProjectManager();
+
+		// Config me if you want!!
+		int generations_to_run = 40;
+		int size_of_generation = 5;
+		int level_seed = 30;
+		
+		projectManager.setLevelSeed(level_seed);
 		
 		//Just show last agent TODO: more features
 		if (args.length > 0 && args[0].equals("-replay"))
@@ -35,12 +42,6 @@ public final class GeneticNNMain
 			return;
 		}
 		
-		// Config me if you want!!
-		int generations_to_run = 40;
-		int size_of_generation = 5;
-		int level_seed = 30;
-		
-		projectManager.setLevelSeed(level_seed);
 		for(int i = 0; i < generations_to_run; i++)
 		{
 			//projectManager.setGUIEnabled(false);
