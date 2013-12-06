@@ -298,8 +298,8 @@ public class GeneticManager
 			
 			GeneticManagerAgent currentOverallBest = getBestOverallAgent();
 			float[] currOverallBestWeights = Arrays.copyOf(currentOverallBest.getAgentWeights(), currentOverallBest.getAgentWeights().length);
-			//return geneticAlgorithm.createChild(tournamentWeights1, tournamentWeights2);
-			return geneticAlgorithm.createChild(tournamentWeights1, currOverallBestWeights);
+			return geneticAlgorithm.createChild(tournamentWeights1, tournamentWeights2);
+			//return geneticAlgorithm.createChild(tournamentWeights1, currOverallBestWeights);
 		}		
 		else
 		{
