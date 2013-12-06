@@ -112,6 +112,11 @@ public class ProjectManager implements IProjectManager
 		return geneticManager.getHighestScoringAgent();
 	}
 
+	public GeneticManagerAgent getBestOverallAgent()
+	{
+		return geneticManager.getBestOverallAgent();
+	}
+
 	/*
 	 * Setters and getters for whether the GUI (of Mario running through the level) is enabled.
 	 */

@@ -43,6 +43,8 @@ public interface IProjectManager
 	 */
 	public GeneticManagerAgent getBestAgent();
 
+	public GeneticManagerAgent getBestOverallAgent();
+
 	/*
 	 * Setters and getters for whether the GUI (of Mario running through the level) is enabled.
 	 */

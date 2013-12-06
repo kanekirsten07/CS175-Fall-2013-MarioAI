@@ -296,7 +296,10 @@ public class GeneticManager
 			float[] tournamentWeights2 = Arrays.copyOf(parentAgent.getAgentWeights(), parentAgent.getAgentWeights().length);
 			//System.err.println("Score 2: " + parentAgent.getAgentScore());		
 			
-			return geneticAlgorithm.createChild(tournamentWeights1, tournamentWeights2);
+			GeneticManagerAgent currentOverallBest = getBestOverallAgent();
+			float[] currOverallBestWeights = Arrays.copyOf(currentOverallBest.getAgentWeights(), currentOverallBest.getAgentWeights().length);
+			//return geneticAlgorithm.createChild(tournamentWeights1, tournamentWeights2);
+			return geneticAlgorithm.createChild(tournamentWeights1, currOverallBestWeights);
 		}		
 		else
 		{
