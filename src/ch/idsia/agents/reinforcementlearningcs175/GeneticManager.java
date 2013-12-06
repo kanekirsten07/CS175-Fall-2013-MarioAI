@@ -6,6 +6,7 @@ import java.util.Random;
 public class GeneticManager 
 {	
 	private ArrayList<GeneticManagerAgent> agents;
+	private ArrayList<GeneticManagerAgent> tournamentPool;
 	private int currentAgentCount;
 
 	private float[] parentWeights1;
@@ -17,7 +18,9 @@ public class GeneticManager
 	public static IEnvironmentProcessor EnvironmentProcessor = new SimpleGridEnvironmentProcessor();
 
 	private int generationNumber;
-
+	
+	private GeneticManagerAgent bestOverallAgent;
+	
 	/*
 	 * Select top x percentage of agents to generate the next generation.
 	 */
@@ -38,7 +41,10 @@ public class GeneticManager
 		generationNumber = 1;
 		currentAgentCount = 0;
 		agents = new ArrayList<GeneticManagerAgent>();
+		tournamentPool = new ArrayList<GeneticManagerAgent>();
 		this.topPercentageToSave = topPercentageToSave;
+		
+		bestOverallAgent = null;
 	}
 	
 	public void Reset()
@@ -46,6 +52,7 @@ public class GeneticManager
 		currentAgentCount = 0;
 		generationNumber = 1;
 		agents.clear();
+		tournamentPool.clear();
 	}
 
 	public int getGenerationNumber()
@@ -93,6 +100,11 @@ public class GeneticManager
 			return agent.getAgentScore();		
 		else
 			return -1;
+	}
+	
+	public GeneticManagerAgent getBestOverallAgent()
+	{
+		return bestOverallAgent;
 	}
 	
 	public GeneticManagerAgent getHighestScoringAgent()
@@ -184,6 +196,9 @@ public class GeneticManager
 	// Returns true if succeeded, false if failed (less than two agents in the set)
 	public boolean clearAllExceptTopTwo()
 	{
+		return tournamentSelection();
+		
+		/*
 		if(agents.size() < 2)
 		{
 			return false;
@@ -224,13 +239,69 @@ public class GeneticManager
 		agents.clear();
 		generationNumber++;
 		return true;
+		*/
 	}
-
+	
+	private boolean tournamentSelection()
+	{
+		if(agents.size() < 2)
+			return false;
+		
+		// Make sure we have the best agent overall (from all generations) saved.
+		GeneticManagerAgent bestAgentInGeneration = getHighestScoringAgent();
+		if(bestOverallAgent == null || bestOverallAgent.getAgentScore() < bestAgentInGeneration.getAgentScore())
+		{
+			bestOverallAgent = bestAgentInGeneration;
+		}
+		
+		// Start adding agents to the tournament pool.		
+		tournamentPool.clear();
+		for (GeneticManagerAgent a : agents)
+		{
+			GeneticManagerAgent b = a;
+			
+			while (b.getAgentID() == a.getAgentID())
+			{
+				b = agents.get((int)(Math.random() * agents.size()));
+			}
+			
+			if(a.getAgentScore() > b.getAgentScore())
+				tournamentPool.add(a);
+			else
+				tournamentPool.add(b);
+		}		
+		
+		agents.clear();		
+		generationNumber++;
+		
+		return true;
+	}
+	
+	private GeneticManagerAgent getRandomTournamentAgent()
+	{
+		return tournamentPool.get((int)(Math.random() * tournamentPool.size()));
+	}
+	
 	// Uses parentWeights1 and parentWeights2, and the GeneticAlgorithm instance to generate a new child
 	// Simply needs to call the GeneticAlgorithm's createChild method and return the float[]
 	public float[] generateNewChild()
-	{
-		return geneticAlgorithm.createChild(parentWeights1, parentWeights2);
+	{			
+		if(tournamentPool.size() > 0)
+		{
+			GeneticManagerAgent parentAgent = getRandomTournamentAgent();
+			float[] tournamentWeights1 = Arrays.copyOf(parentAgent.getAgentWeights(), parentAgent.getAgentWeights().length);
+			System.err.println("Score 1: " + parentAgent.getAgentScore());
+			
+			parentAgent = getRandomTournamentAgent();
+			float[] tournamentWeights2 = Arrays.copyOf(parentAgent.getAgentWeights(), parentAgent.getAgentWeights().length);
+			System.err.println("Score 2: " + parentAgent.getAgentScore());		
+			
+			return geneticAlgorithm.createChild(tournamentWeights1, tournamentWeights2);
+		}		
+		else
+		{
+			return geneticAlgorithm.createChild(parentWeights1, parentWeights2);
+		}
 	}
 
 	private float[] createRandomWeights(int size)
