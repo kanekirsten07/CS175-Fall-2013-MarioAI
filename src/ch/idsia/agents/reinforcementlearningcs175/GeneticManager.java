@@ -290,11 +290,11 @@ public class GeneticManager
 		{
 			GeneticManagerAgent parentAgent = getRandomTournamentAgent();
 			float[] tournamentWeights1 = Arrays.copyOf(parentAgent.getAgentWeights(), parentAgent.getAgentWeights().length);
-			System.err.println("Score 1: " + parentAgent.getAgentScore());
+			//System.err.println("Score 1: " + parentAgent.getAgentScore());
 			
 			parentAgent = getRandomTournamentAgent();
 			float[] tournamentWeights2 = Arrays.copyOf(parentAgent.getAgentWeights(), parentAgent.getAgentWeights().length);
-			System.err.println("Score 2: " + parentAgent.getAgentScore());		
+			//System.err.println("Score 2: " + parentAgent.getAgentScore());		
 			
 			return geneticAlgorithm.createChild(tournamentWeights1, tournamentWeights2);
 		}		
