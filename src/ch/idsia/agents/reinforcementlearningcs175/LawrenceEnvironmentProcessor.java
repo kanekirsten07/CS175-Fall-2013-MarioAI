@@ -9,233 +9,53 @@ public class LawrenceEnvironmentProcessor implements IEnvironmentProcessor
 {
 	public float[] processEnvironment(BasicMarioAIAgent agent, int mariocol, int mariorow) 
 	{
-		int fieldHeight = agent.receptiveFieldHeight;
-		int fieldWidth = agent.receptiveFieldWidth;
+		float[] toReturn = new float[4];
+		toReturn[0] = 0;
+		toReturn[1] = 0;
+		toReturn[2] = 0;
+		toReturn[3] = 0;
 
-		float[] toReturn = new float[fieldHeight * (fieldWidth - mariocol)];
-		float[][] almostToReturn = new float[fieldWidth-mariocol][fieldHeight];
-		boolean[][] hasEnemy = new boolean[fieldWidth-mariocol][fieldHeight];
-		boolean[][] isStompable = new boolean[fieldWidth-mariocol][fieldHeight];
-		boolean[][] obstructed = new boolean[fieldWidth-mariocol][fieldHeight];
-		//System.err.println("========="+toReturn.length);
-
-		for(int row = 0; row < fieldHeight; row++)
+		for(int i = 3; i >= 0; i--)
 		{
-			//for(int col = mariocol; col < fieldWidth; col++)
-			for(int col = 0; col < fieldWidth-mariocol; col++)
+			int block1 = agent.getReceptiveFieldCellValue(mariocol-i, mariorow + 1);
+			int block2 = agent.getReceptiveFieldCellValue(mariocol-(i+1), mariorow + 1);
+			if(passable(block1) && passable(block2))
 			{
-				int cellValue = agent.getReceptiveFieldCellValue(col, row);
-				int enemyValue = agent.getReceptiveFieldCellValue(col, row);
+				toReturn[0] = 0;
+				toReturn[1] = 0;
+				toReturn[2] = 0;
+				toReturn[3] = 0;
 
-				almostToReturn[col][row] = 1;
-
-				isStompable[col][row] = isStompableEnemy(enemyValue);
-				hasEnemy[col][row] = isEnemy(enemyValue);
-				obstructed[col][row] = isObstructed(cellValue);
-			}
-		}
-
-		for(int row = 0; row < fieldHeight; row++)
-		{
-			//for(int col = mariocol; col < fieldWidth; col++)
-			for(int col = 0; col < fieldWidth - mariocol; col++)
-			{
-				if(hasEnemy[col][row])
-				{
-					if((col - 1) >= mariocol)
-					{
-						for(int i = 0 ; i < fieldHeight; i++)
-						{
-							//almostToReturn[col-1][i] += -1;
-							almostToReturn[col-1][i] = 0;
-						}
-					}
-					if((col + 1) < fieldWidth)
-					{
-						for(int i = 0 ; i < fieldHeight; i++)
-						{
-							//almostToReturn[col+1][i] += -1;
-							almostToReturn[col+1][i] = 0;
-						}
-					}
-				}
-				/*
-				if(isStompable[col][row])
-				{
-					if((row+1) < fieldHeight)
-					{
-						almostToReturn[col][row+1] += 1;
-					}
-				}
-				*/
-				if(obstructed[col][row])
-				{
-					/*
-					if((row+1) < fieldHeight)
-					{
-						if(!obstructed[col][row+1])
-						{
-							almostToReturn[col][row+1] +=1;
-						}
-					}
-					*/
-					almostToReturn[col][row] = 0;
-
-				}
-			}
-		}
-		int index = 0;
-		for(int row = 0; row < fieldHeight; row++)
-		{
-			for(int col = 0; col < fieldWidth - mariocol; col++)
-			{
-				toReturn[index++] = almostToReturn[col][row];
+				toReturn[i] = 1;
 			}
 		}
 		return toReturn;
+
 	}
-	private boolean isStompableEnemy(int enemyValue)
+	private boolean passable(int id)
 	{
-		boolean toReturn = false;
-		switch(enemyValue)
-		{
-			case(Sprite.KIND_BULLET_BILL):
-				toReturn = true;
-				break;
-			case(Sprite.KIND_ENEMY_FLOWER):
-				break;
-			case(Sprite.KIND_GOOMBA):
-				toReturn = true;
-				break;
-			case(Sprite.KIND_GOOMBA_WINGED):
-				toReturn = true;
-				break;
-			case(Sprite.KIND_WAVE_GOOMBA):
-				break;
-			case(Sprite.KIND_GREEN_KOOPA):
-				toReturn = true;
-				break;
-			case(Sprite.KIND_GREEN_KOOPA_WINGED):
-				toReturn = true;
-				break;
-			case(Sprite.KIND_RED_KOOPA):
-				toReturn = true;
-				break;
-			case(Sprite.KIND_RED_KOOPA_WINGED):
-				toReturn = true;
-				break;
-			case(Sprite.KIND_SHELL):
-				break;
-			default:
-				break;
-		}
-		return toReturn;
+		if(id == 0)
+			return true;
+		if(id == 2)
+			return true;
+		if(id == -62)
+			return true;
+
+		return false;
 	}
-	private boolean isEnemy(int enemyValue)
+
+	private boolean isEnemy(int id)
 	{
-		boolean toReturn = false;;
-		switch(enemyValue)
-		{
-			case(Sprite.KIND_BULLET_BILL):
-				toReturn = true;
-				break;
-			case(Sprite.KIND_ENEMY_FLOWER):
-				toReturn = true;
-				break;
-			case(Sprite.KIND_GOOMBA):
-				toReturn = true;
-				break;
-			case(Sprite.KIND_GOOMBA_WINGED):
-				toReturn = true;
-				break;
-			case(Sprite.KIND_WAVE_GOOMBA):
-				toReturn = true;
-				break;
-			case(Sprite.KIND_GREEN_KOOPA):
-				toReturn = true;
-				break;
-			case(Sprite.KIND_GREEN_KOOPA_WINGED):
-				toReturn = true;
-				break;
-			case(Sprite.KIND_RED_KOOPA):
-				toReturn = true;
-				break;
-			case(Sprite.KIND_RED_KOOPA_WINGED):
-				toReturn = true;
-				break;
-			case(Sprite.KIND_SHELL):
-				toReturn = true;
-				break;
-			default:
-				break;
-		}
-		return toReturn;
-	}
-	private boolean isObstructed(int environmentValue)
-	{
-		boolean toReturn = false;
-		switch(environmentValue)
-		{
-		       case(-60):
-				//grass, unbreakable brick
-				toReturn = true;
-				break;
-		       case(-24):
-				// breakable stuff, like a question mark box or brick
-				toReturn = true;
-				break;
-		       case(-85):
-				// tube (A whole series of them! No, but really)
-				toReturn = true;
-				break;
-			default:
-				break;
-		}
-		return toReturn;
-	}
-	private int processEnemyCellValue(int enemyValue)
-	{
-		int toReturn = 0;
-		switch(enemyValue)
-		{
-			case(Sprite.KIND_BULLET_BILL):
-				toReturn++;
-				break;
-			case(Sprite.KIND_ENEMY_FLOWER):
-				toReturn++;
-				break;
-			case(Sprite.KIND_GOOMBA):
-				toReturn++;
-				break;
-			case(Sprite.KIND_GOOMBA_WINGED):
-				toReturn++;
-				break;
-			case(Sprite.KIND_WAVE_GOOMBA):
-				toReturn++;
-				break;
-			case(Sprite.KIND_GREEN_KOOPA):
-				toReturn++;
-				break;
-			case(Sprite.KIND_GREEN_KOOPA_WINGED):
-				toReturn++;
-				break;
-			case(Sprite.KIND_RED_KOOPA):
-				toReturn++;
-				break;
-			case(Sprite.KIND_RED_KOOPA_WINGED):
-				toReturn++;
-				break;
-			case(Sprite.KIND_SHELL):
-				toReturn++;
-				break;
-			default:
-				break;
-		}
-		return toReturn;
+		if(id == 0)
+			return false;
+		if(id == 25)
+			return false;
+
+		return true;
 	}
 
 	public int getInputSize()
 	{
-		return 190;
+		return 4;
 	}
 }
