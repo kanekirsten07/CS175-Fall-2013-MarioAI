@@ -1,9 +1,12 @@
+
 package ch.idsia.agents.reinforcementlearningcs175;
 
 import java.util.List;
 
 public interface IProjectManager
 {
+	public void setInitialParents(float[] weights1, float[] weights2);
+	
 	/*
 	 * Causes numberOfAgents new agents to be 
 	 * 	1. Created (via the genetic algorithm) 

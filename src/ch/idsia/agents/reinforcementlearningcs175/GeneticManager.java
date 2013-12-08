@@ -47,6 +47,12 @@ public class GeneticManager
 		bestOverallAgent = null;
 	}
 	
+	public void setInitialParents(float[] weights1, float[] weights2)
+	{
+		parentWeights1 = weights1;
+		parentWeights2 = weights2;
+	}
+	
 	public void Reset()
 	{
 		currentAgentCount = 0;
