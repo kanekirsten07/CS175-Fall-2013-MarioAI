@@ -66,7 +66,6 @@ public final class GeneticNNMain
 			if (i < generations_to_run - 1)
 				projectManager.purgeCurrentGeneration();
 		}
-		projectManager.purgeCurrentGeneration();
 		
 		//Save out best weight set
 		try
