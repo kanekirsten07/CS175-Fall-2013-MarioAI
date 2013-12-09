@@ -12,24 +12,29 @@ public final class GeneticNNMain
 		IProjectManager projectManager = new ProjectManager();
 
 		// Config me if you want!!
-		int generations_to_run = 40;
-		int size_of_generation = 5;
-		int level_seed = 30;
+		int generations_to_run = 500;
+		int size_of_generation = 30;
+		int level_seed = 101;
 		
 		projectManager.setLevelSeed(level_seed);
 		
 		//Just show last agent TODO: more features
-		if (args.length > 0 && args[0].equals("-replay"))
+		boolean replay = args.length > 0 && args[0].equals("-replay");
+		boolean resume = args.length > 0 && args[0].equals("-resume");
+		float[] readweights1 = null;
+		float[] readweights2 = null;
+		if (replay || resume)
 		{
 			try
 			{
 				BufferedReader reader = new BufferedReader(new FileReader(outputFile));
-				float[] readweights = new float[Integer.parseInt(reader.readLine())];
-				for (int c = 0; c < readweights.length; c++)
-					readweights[c] = Float.parseFloat(reader.readLine());
+				readweights1 = new float[Integer.parseInt(reader.readLine())];
+				for (int c = 0; c < readweights1.length; c++)
+					readweights1[c] = Float.parseFloat(reader.readLine());
+				readweights2 = new float[Integer.parseInt(reader.readLine())];
+				for (int c = 0; c < readweights2.length; c++)
+					readweights2[c] = Float.parseFloat(reader.readLine());
 				reader.close();
-				projectManager.setGUIEnabled(true);
-				projectManager.runWeights(readweights);
 			}
 			catch (FileNotFoundException e)
 			{
@@ -39,7 +44,17 @@ public final class GeneticNNMain
 			{
 				System.out.println(e.toString());
 			}
+		}
+		
+		if (replay)
+		{
+			projectManager.setGUIEnabled(true);
+			projectManager.runWeights(readweights1);
 			return;
+		}
+		else if (resume)
+		{
+			projectManager.setInitialParents(readweights1, readweights2);
 		}
 		
 		for(int i = 0; i < generations_to_run; i++)
@@ -57,6 +72,10 @@ public final class GeneticNNMain
 		{
 			PrintStream stream = new PrintStream(outputFile);
 			float[] bestweights = projectManager.getBestOverallAgent().getAgentWeights();
+			stream.println(bestweights.length);
+			for (int c = 0; c < bestweights.length; c++)
+				stream.println(bestweights[c]);
+			bestweights = projectManager.getBestAgent().getAgentWeights();
 			stream.println(bestweights.length);
 			for (int c = 0; c < bestweights.length; c++)
 				stream.println(bestweights[c]);

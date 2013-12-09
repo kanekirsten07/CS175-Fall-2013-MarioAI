@@ -30,6 +30,11 @@ public class ProjectManager implements IProjectManager
 		
 		geneticManager = new GeneticManager();
 	}
+	
+	public void setInitialParents(float[] weights1, float[] weights2)
+	{
+		geneticManager.setInitialParents(weights1, weights2);
+	}
 
 	/*
 	 * Causes numberOfAgents new agents to be 
