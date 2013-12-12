@@ -12,9 +12,9 @@ public final class GeneticNNMain
 		IProjectManager projectManager = new ProjectManager();
 
 		// Config me if you want!!
-		int generations_to_run = 500;
-		int size_of_generation = 30;
-		int level_seed = 101;
+		int generations_to_run = 60;
+		int size_of_generation = 15;
+		int level_seed = 42;
 		
 		projectManager.setLevelSeed(level_seed);
 		

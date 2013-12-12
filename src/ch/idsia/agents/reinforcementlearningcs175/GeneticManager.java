@@ -15,7 +15,7 @@ public class GeneticManager
 	
 	// First weight is now just a placeholder, filled in by EnvironmentProcessor later
 	public static int[] NetWeights = new int[] { 0, 20, 6 };
-	public static IEnvironmentProcessor EnvironmentProcessor = new SimpleGridEnvironmentProcessor();
+	public static IEnvironmentProcessor EnvironmentProcessor = new EnvironmentProcessor();
 
 	private int generationNumber;
 	
