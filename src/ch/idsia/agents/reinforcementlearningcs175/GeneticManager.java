@@ -28,7 +28,6 @@ public class GeneticManager
 	
 	public GeneticManager()
 	{
-		//HACK
 		this(5, NeuralNet.TheoreticalSizeOf(NetWeights));
 	}
 
@@ -74,12 +73,6 @@ public class GeneticManager
 	
 	public GeneticManagerAgent getAgent(int agentID)
 	{
-		/*
-		if(agentID < currentAgentCount)
-			return agents.get(agentID);
-		else
-			return null;
-			*/
 		for(GeneticManagerAgent temp_agent : agents)
 		{
 			if(temp_agent.getAgentID() == agentID)
@@ -196,56 +189,11 @@ public class GeneticManager
 		this.topPercentageToSave = topPercentageToSave;
 	}
 
-	// Take the top two scoring agents, and assign their weights to parentWeights1 and parentWeights2.
-	// Then clears the set of agents.
-	// Increments the generation number by 1.
-	// Returns true if succeeded, false if failed (less than two agents in the set)
+	// This was originally used to select the top two agents of a generation.
+	// Now, it uses tournament selection.
 	public boolean clearAllExceptTopTwo()
 	{
 		return tournamentSelection();
-		
-		/*
-		if(agents.size() < 2)
-		{
-			return false;
-		}
-		// First find highest score
-		float highest_score = agents.get(0).getAgentScore();
-		int highest_score_index = 0;
-		GeneticManagerAgent top_agent;
-		for(int i = 0 ; i < agents.size(); i++)
-		{
-			if(agents.get(i).getAgentScore() > highest_score)
-			{
-				highest_score_index = i;
-				highest_score = agents.get(i).getAgentScore();
-			}
-		}
-		top_agent = agents.get(highest_score_index);
-		agents.remove(highest_score_index);
-		parentWeights1 = Arrays.copyOf(top_agent.getAgentWeights(), top_agent.getAgentWeights().length);
-		System.err.println("Top score: "+top_agent.getAgentScore());
-
-		// Find second highest score
-		highest_score = agents.get(0).getAgentScore();
-		highest_score_index = 0;
-		for(int i = 0 ; i < agents.size(); i++)
-		{
-			if(agents.get(i).getAgentScore() > highest_score)
-			{
-				highest_score_index = i;
-				highest_score = agents.get(i).getAgentScore();
-			}
-		}
-		top_agent = agents.get(highest_score_index);
-		agents.remove(highest_score_index);
-		parentWeights2 = Arrays.copyOf(top_agent.getAgentWeights(), top_agent.getAgentWeights().length);
-		System.err.println("2nd Top score: "+top_agent.getAgentScore());
-		
-		agents.clear();
-		generationNumber++;
-		return true;
-		*/
 	}
 	
 	private boolean tournamentSelection()
@@ -305,7 +253,6 @@ public class GeneticManager
 			GeneticManagerAgent currentOverallBest = getBestOverallAgent();
 			float[] currOverallBestWeights = Arrays.copyOf(currentOverallBest.getAgentWeights(), currentOverallBest.getAgentWeights().length);
 			return geneticAlgorithm.createChild(tournamentWeights1, tournamentWeights2);
-			//return geneticAlgorithm.createChild(tournamentWeights1, currOverallBestWeights);
 		}		
 		else
 		{
@@ -315,7 +262,6 @@ public class GeneticManager
 
 	private float[] createRandomWeights(int size)
 	{
-		//HACK: do this somewhere else
 		//Randomize weights
 		float[] tempweights = new float[size];
 		Random rand = new Random(System.currentTimeMillis());
